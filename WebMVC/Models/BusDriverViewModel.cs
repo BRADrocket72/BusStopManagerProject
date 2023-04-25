@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebMVC.Models
 {
-    public class BusDriver : PageModel
+    public class BusDriverViewModel : PageModel
     {
-        public int Boarding {get; set;}
-        public int Exiting {get; set;}
+        public int Boarding { get; set; }
+        public int Exiting { get; set; }
 
         public void OnGet()
         {
@@ -37,6 +37,6 @@ namespace WebMVC.Models
         {
             Exiting--;
         }
-      
+
     }
 }
