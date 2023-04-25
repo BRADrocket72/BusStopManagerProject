@@ -1,12 +1,17 @@
-@page
-@model BusDriver
+@model BusDriverViewModel
 @{
-    ViewData["Title"] = "Bus Route Tracker";
+    ViewData["Title"] = "BusTracker";
 }
 
+<div>
+    <h1>Bus Route Tracker</h1>
 
-<h1>Bus Route Tracker</h1>
 
+    <div>
+        <h3>Boarding #: 1</h3>
+        <button type="button" class="btn btn-lg" onclick="@(() => Model.IncreaseOnBoard())">+</button>
+        <button type="button" class="btn btn-lg" onclick="@(() => Model.DecreaseOnBoard())">-</button>
+    </div>
 <body>
     <div>
         <h3>Boarding #: @Model.Boarding</h3>
@@ -18,10 +23,8 @@
 
 
     <div>
-        <h3>Departing #: @Model.Exiting</h3>
-        <button type = "button" class = "btn btn-lg" onclick="@(() => Model.DecreaseDeparting())">-</button>
-        <span id = "counter2">0</span>
-        <button type = "button" class = "btn btn-lg" onclick="@(() => Model.IncreaseDeparting())">+</button>
-        
+        <h3>Departing #: 33</h3>
+        <button type="button" class="btn btn-lg" onclick="@(() => Model.IncreaseDeparting())">+</button>
+        <button type="button" class="btn btn-lg" onclick="@(() => Model.DecreaseDeparting())">-</button>
     </div>
-</body>
+</div>

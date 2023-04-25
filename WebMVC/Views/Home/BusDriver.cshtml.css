@@ -1,6 +1,6 @@
 .btn-lg {
-    background-color: rgb(230, 120, 120);
-    color: rgb(0, 0, 0);
+    background-color: lightcoral;
+    color: red;
     padding: 16px 32 px;
     text-align: center;
     font-size: 16px;
@@ -34,4 +34,7 @@ body {
 #counter2{
     font-size: large;
     font-style: bold;
+}
+*{
+    background-color: #ffcccb;
 }
