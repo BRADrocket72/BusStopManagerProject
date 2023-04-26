@@ -1,8 +1,8 @@
-public class BusRepository
+public class BusRepo
 {
     private readonly DbContext _context;
 
-    public BusRepository(DbContext context)
+    public BusRepo(DbContext context)
     {
         _context = context;
     }
