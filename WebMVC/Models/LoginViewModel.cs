@@ -1,8 +1,16 @@
-namespace WebMVC.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc;
 
-public class LoginViewModel
+namespace WebMVC.Models
 {
-    public string? email { get; set; }
+    public class LoginViewModel : PageModel
+    {
+        public string? Email { get; set; }
+        public string? Password { get; set; }
 
-    public string? password { get; set; }
+    }
 }
