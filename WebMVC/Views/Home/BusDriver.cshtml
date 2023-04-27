@@ -1,0 +1,22 @@
+@model BusDriverViewModel
+@{
+    ViewData["Title"] = "BusTracker";
+}
+
+<div>
+    <h1>Bus Route Tracker</h1>
+
+
+    <div>
+        <h3>Boarding #: 1</h3>
+        <button type="button" class="btn btn-lg" onclick="@(() => Model.IncreaseOnBoard())">+</button>
+        <button type="button" class="btn btn-lg" onclick="@(() => Model.DecreaseOnBoard())">-</button>
+    </div>
+
+
+    <div>
+        <h3>Departing #: 33</h3>
+        <button type="button" class="btn btn-lg" onclick="@(() => Model.IncreaseDeparting())">+</button>
+        <button type="button" class="btn btn-lg" onclick="@(() => Model.DecreaseDeparting())">-</button>
+    </div>
+</div>
