@@ -1,0 +1,30 @@
+@model IEnumerable<List_Data_Binding_in_MVC.Models.Employee>  
+  
+@{  
+    ViewBag.Title = "Index";  
+}  
+<div><b>Table Format Data Displaying in ForEach</b><br /></div>  
+<table class="table table-bordered table-responsive table-hover">  
+    <tr>  
+        <th>Employee Id </th>  
+        <th>First Name </th>  
+        <th>Last Name </th>  
+        <th>Email</th>  
+        <th>Salary</th>  
+        <th>Company</th>  
+        <th>Department</th>  
+    </tr>  
+    @foreach (var d in Model)  
+    {  
+        <tr>  
+            <td>@d.EmployeeId</td>  
+            <td>@d.FirstName</td>  
+            <td>@d.LastName</td>  
+            <td>@d.Email</td>  
+            <td>@d.Salary</td>  
+            <td>@d.Company</td>  
+            <td>@d.Dept</td>  
+  
+        </tr>  
+    }  
+</table>  
