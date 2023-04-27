@@ -1,23 +1,19 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using WebMVC.Models;
 
 namespace WebMVC.Controllers;
 
-public class HomeController : Controller
+public class BusDriverController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly ILogger<BusDriverController> _logger;
 
-    public HomeController(ILogger<HomeController> logger)
+    public BusDriverController(ILogger<BusDriverController> logger)
     {
         _logger = logger;
     }
 
     public IActionResult Index()
-    {
-        return View();
-    }
-    public IActionResult BusDriver()
     {
         return View();
     }
