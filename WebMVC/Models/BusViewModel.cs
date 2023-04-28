@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebMVC.Models
 {
-    public class RouteViewModel : PageModel
+    public class BusViewModel : PageModel
     {
         public Guid Id;
         public int BusNumber;

@@ -12,6 +12,5 @@ namespace WebMVC.Models
         public Guid Id;
         public int Order;
 
-
     }
 }

@@ -10,8 +10,8 @@ namespace WebMVC.Models
     public class DriverViewModel : PageModel
     {
         public Guid Id;
-        public int FirstName;
-        public int LastName;
+        public string FirstName;
+        public string LastName;
 
     }
 }

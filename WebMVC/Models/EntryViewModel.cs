@@ -13,5 +13,7 @@ namespace WebMVC.Models
         public DateTime Timestamp;
         public int Boarded;
         public int LeftBehind;
+        public DriverViewModel Driver;
+        public LoopViewModel Loop;
     }
 }
