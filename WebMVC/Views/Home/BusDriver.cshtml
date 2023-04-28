@@ -8,23 +8,17 @@
 
 
     <div>
-        <h3>Boarding #: 1</h3>
-        <button type="button" class="btn btn-lg" onclick="@(() => Model.IncreaseOnBoard())">+</button>
-        <button type="button" class="btn btn-lg" onclick="@(() => Model.DecreaseOnBoard())">-</button>
-    </div>
-<body>
-    <div>
-        <h3>Boarding #: @Model.Boarding</h3>
-        <button type = "button" class = "btn btn-lg" onclick="@(() => Model.DecreaseOnBoard())">-</button>
-        <span id = "counter1">0</span>
-        <button type = "button" class = "btn btn-lg" onclick="@(() => Model.IncreaseOnBoard())">+</button>
-        
+        <h3>Boarding #: </h3>
+        <button type="button" class="btn btn-lg" asp-area="" asp-controller="BusDriverController" asp-action="IncreaseOnBoard">+</button>
+            <h4>@Model.Boarding</h4>
+        <button type="button" class="btn btn-lg" asp-area="" asp-controller="BusDriverController" asp-action="DecreaseOnBoard">+</button>
     </div>
 
 
     <div>
-        <h3>Departing #: 33</h3>
-        <button type="button" class="btn btn-lg" onclick="@(() => Model.IncreaseDeparting())">+</button>
-        <button type="button" class="btn btn-lg" onclick="@(() => Model.DecreaseDeparting())">-</button>
+        <h3>Departing #:</h3>
+        <button type="button" class="btn btn-lg" asp-area="" asp-controller="BusDriverController" asp-action="IncreaseDeparting">+</button>
+            <h4>@Model.Exiting</h4>
+        <button type="button" class="btn btn-lg" asp-area="" asp-controller="BusDriverController" asp-action="DecreaseDeparting">+</button>
     </div>
 </div>
