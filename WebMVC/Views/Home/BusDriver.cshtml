@@ -1,6 +1,6 @@
-@model BusDriverViewModel
+@model WebMVC.Models.BusDriverViewModel
 @{
-    ViewData["Title"] = "BusTracker";
+    ViewData["Title"] = "BusDriver";
 }
 
 <div>
@@ -9,16 +9,16 @@
 
     <div>
         <h3>Boarding #: </h3>
-        <button type="button" class="btn btn-lg" asp-area="" asp-controller="BusDriverController" asp-action="IncreaseOnBoard">+</button>
-            <h4>@Model.Boarding</h4>
-        <button type="button" class="btn btn-lg" asp-area="" asp-controller="BusDriverController" asp-action="DecreaseOnBoard">+</button>
+        <button type="button" class="btn btn-lg"  asp-controller="BusDriverController" asp-action="IncreaseOnBoard">+</button>
+            <h4>@ViewData["Boarding"]</h4>
+        <button type="button" class="btn btn-lg"  asp-controller="BusDriverController" asp-action="DecreaseOnBoard">-</button>
     </div>
 
 
     <div>
         <h3>Departing #:</h3>
-        <button type="button" class="btn btn-lg" asp-area="" asp-controller="BusDriverController" asp-action="IncreaseDeparting">+</button>
-            <h4>@Model.Exiting</h4>
-        <button type="button" class="btn btn-lg" asp-area="" asp-controller="BusDriverController" asp-action="DecreaseDeparting">+</button>
+        <button type="button" class="btn btn-lg" asp-controller="BusDriverController" asp-action="IncreaseDeparting">+</button>
+            <h4>@ViewData["Exiting"]</h4>
+        <button type="button" class="btn btn-lg" asp-controller="BusDriverController" asp-action="DecreaseDeparting">-</button>
     </div>
 </div>

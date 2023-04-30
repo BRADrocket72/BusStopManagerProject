@@ -2,12 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebMVC.Models
 {
-    public class BusDriverViewModel : PageModel
+    public class BusDriverViewModel
     {
         public int Boarding { get; set; }
         public int Exiting { get; set; }

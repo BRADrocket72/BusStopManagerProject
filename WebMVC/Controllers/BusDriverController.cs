@@ -5,6 +5,20 @@ namespace WebMVC.Controllers
 {
     public class BusDriverController : Controller
     {
+
+        public IActionResult BusDriver()
+        {
+            
+            ViewData["Boarding"] = 0;
+            ViewData["Exiting"] = 0;
+            return View();
+        }
+
+        
+
+
+
+        /*
         private readonly BusDriverViewModel _model;
 
         public BusDriverController(BusDriverViewModel model)
@@ -40,5 +54,7 @@ namespace WebMVC.Controllers
             _model.DecreaseDeparting();
             return RedirectToAction("Index");
         }
+        */
+        
     }
 }
