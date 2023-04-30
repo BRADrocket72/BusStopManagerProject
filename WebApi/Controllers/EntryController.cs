@@ -14,7 +14,7 @@ namespace WebApi.Controllers
             _entryRepo = entryRepo;
         }
 
-        [HttpGet("GetAllEntries")]
+        [HttpGet("GetAll")]
         public IActionResult GetAllEntries(){
             var entries = _entryRepo.GetAllEntries();
             return Ok(entries);

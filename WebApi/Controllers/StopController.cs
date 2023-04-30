@@ -14,7 +14,7 @@ namespace WebApi.Controllers
             _stopRepo = stopRepo;
         }
 
-        [HttpGet("GetAllStops")]
+        [HttpGet("GetAll")]
         public IActionResult GetAllStops(){
             var stops = _routeRepo.GetAllStops();
             return Ok(stops);
