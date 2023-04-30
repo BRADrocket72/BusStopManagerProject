@@ -1,31 +1,58 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using WebMVC.Models;
 
-namespace WebMVC.Controllers;
-
-public class BusDriverController : Controller
+namespace WebMVC.Controllers
 {
-    private readonly ILogger<BusDriverController> _logger;
-
-    public BusDriverController(ILogger<BusDriverController> logger)
+    public class BusDriverController : Controller
     {
-        _logger = logger;
-    }
+        public IActionResult BusDriver()
+        {
+            ViewData["Boarding"] = 0;
+            ViewData["Exiting"] = 0;
+            /*
+            var model = new BusDriverViewModel
+            {
+                Boarding = (int)ViewData["Boarding"],
+                Exiting = (int)ViewData["Exiting"]
+            };
+            */
+            return View();
+        }
 
-    public IActionResult Index()
-    {
-        return View();
-    }
+        [HttpPost]
+        public IActionResult IncreaseBoarding()
+        {
+            int boarding = (int)ViewData["Boarding"];
+            boarding++;
+            ViewData["Boarding"] = boarding;
+            return View("BusDriver");
+        }
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
+        [HttpPost]
+        public IActionResult DecreaseBoarding()
+        {
+            int boarding = (int)ViewData["Boarding"];
+            boarding--;
+            ViewData["Boarding"] = boarding;
+            return View("BusDriver");
+        }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        [HttpPost]
+        public IActionResult IncreaseExiting()
+        {
+            int exiting = (int)ViewData["Exiting"];
+            exiting++;
+            ViewData["Exiting"] = exiting;
+            return View("BusDriver");
+        }
+
+        [HttpPost]
+        public IActionResult DecreaseExiting()
+        {
+            int exiting = (int)ViewData["Exiting"];
+            exiting--;
+            ViewData["Exiting"] = exiting;
+            return View("BusDriver");
+        }
     }
 }

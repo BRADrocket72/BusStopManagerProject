@@ -1,10 +1,9 @@
 .btn-lg {
     background-color: lightcoral;
-    color: red;
+    color: black;
     padding: 16px 32 px;
     text-align: center;
     font-size: 16px;
-    text-decoration: none;
     display: inline-block;
 }
 
@@ -37,4 +36,10 @@ body {
 }
 *{
     background-color: #ffcccb;
+}
+div{
+    align-items: center;
+}
+h4{
+    color: black;
 }
