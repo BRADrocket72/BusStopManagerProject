@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebMVC.Models;
 using System;
 
+
 namespace WebMVC.Controllers;
 
 public class RouteController : Controller
@@ -21,6 +22,16 @@ public class RouteController : Controller
         List<RouteViewModel> routes = new List<RouteViewModel> { new RouteViewModel { Id = Guid.NewGuid(), Order = 2 } };
         return View(routes);
     }
+
+    public IActionResult RouteMap()
+    {
+        List<RouteViewModel> routes = new List<RouteViewModel> { new RouteViewModel { Id = Guid.NewGuid(), Order = 2 } };
+
+
+        return View(routes);
+    }
+
+
 
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
