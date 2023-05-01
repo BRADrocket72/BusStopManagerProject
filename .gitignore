@@ -29,4 +29,7 @@ obj/
 .history
 .ionide
 
+# MacOS files
+.DS_Store
+
 # End of https://www.toptal.com/developers/gitigno
