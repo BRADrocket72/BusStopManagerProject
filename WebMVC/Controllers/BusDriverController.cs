@@ -5,54 +5,18 @@ namespace WebMVC.Controllers
 {
     public class BusDriverController : Controller
     {
-        public IActionResult BusDriver()
+        public IActionResult Index()
         {
-            ViewData["Boarding"] = 0;
-            ViewData["Exiting"] = 0;
-            /*
-            var model = new BusDriverViewModel
-            {
-                Boarding = (int)ViewData["Boarding"],
-                Exiting = (int)ViewData["Exiting"]
-            };
-            */
             return View();
         }
 
         [HttpPost]
-        public IActionResult IncreaseBoarding()
+        public IActionResult Index(BusDriverViewModel model)
         {
-            int boarding = (int)ViewData["Boarding"];
-            boarding++;
-            ViewData["Boarding"] = boarding;
-            return View("BusDriver");
-        }
+            int totalPassengers = model.Boarding - model.Exiting;
+            ViewData["TotalPassengers"] = totalPassengers;
 
-        [HttpPost]
-        public IActionResult DecreaseBoarding()
-        {
-            int boarding = (int)ViewData["Boarding"];
-            boarding--;
-            ViewData["Boarding"] = boarding;
-            return View("BusDriver");
-        }
-
-        [HttpPost]
-        public IActionResult IncreaseExiting()
-        {
-            int exiting = (int)ViewData["Exiting"];
-            exiting++;
-            ViewData["Exiting"] = exiting;
-            return View("BusDriver");
-        }
-
-        [HttpPost]
-        public IActionResult DecreaseExiting()
-        {
-            int exiting = (int)ViewData["Exiting"];
-            exiting--;
-            ViewData["Exiting"] = exiting;
-            return View("BusDriver");
+            return View();
         }
     }
 }
