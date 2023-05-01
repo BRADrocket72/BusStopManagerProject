@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "BusDriver";
 }
+<link rel="stylesheet" type="text/css" href="cshtml.css">
 
 <div>
     <h1>Bus Route Tracker</h1>
@@ -21,26 +22,4 @@
     {
         <div>Total passengers: @ViewData["TotalPassengers"]</div>
     }
-
-
-
-    
-
-    
-    @* <div>
-        <h3>Boarding #: </h3>
-        <button type="button" class="btn btn-lg" asp-action="IncreaseBoarding">+</button>
-            <h4>@ViewData["Boarding"]</h4>
-        <button type="button" class="btn btn-lg" asp-action="DecreaseBoarding">-</button>
-    </div>
-    
-
-    
-    <div>
-        <h3>Departing #:</h3>
-        <button type="button" class="btn btn-lg" asp-action="IncreaseExiting">+</button>
-            <h4>@ViewData["Exiting"]</h4>
-        <button type="button" class="btn btn-lg" asp-action="DecreaseExiting">-</button>
-    </div>
-     *@
 </div>
