@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Data.SqLite;
-using Microsoft.EntityFrameworkCore.DbContext;
 using Domain;
-using WebApi.Data;
+
 
 namespace WebApi.Controllers {
 
