@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebMVC.Models
 {
-    public class RouteViewModel : PageModel
+    public class MapPointViewModel : PageModel
     {
-        public Guid Id;
-        public int Order;
-        public IEnumerable<StopViewModel> Stops;
+        public double lat;
+        public double lng;
+
 
     }
 }

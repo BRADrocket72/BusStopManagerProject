@@ -6,27 +6,17 @@ using System;
 
 namespace WebMVC.Controllers;
 
-public class RouteController : Controller
+public class StopsController : Controller
 {
-    private readonly ILogger<RouteController> _logger;
+    private readonly ILogger<StopsController> _logger;
 
-    public RouteController(ILogger<RouteController> logger)
+    public StopsController(ILogger<StopsController> logger)
     {
         _logger = logger;
     }
 
 
-
-    public IActionResult RoutesTable()
-    {
-        List<RouteViewModel> routes = new List<RouteViewModel> { new RouteViewModel { Id = Guid.NewGuid(), Order = 2 } };
-        return View(routes);
-    }
-
-
-
-
-    public IActionResult RouteMap()
+    public IActionResult StopsMap()
     {
         List<MapPointViewModel> stops = new List<MapPointViewModel> { new MapPointViewModel { lat = -25.344, lng = 131.031 }, new MapPointViewModel { lat = -20.344, lng = 121.031 } };
 
