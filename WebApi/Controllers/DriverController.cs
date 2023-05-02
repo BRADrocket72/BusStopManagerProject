@@ -48,7 +48,7 @@ namespace WebApi.Controllers {
         [HttpPost("Update/UpdateDriver")]
         public IActionResult UpdateDriver([FromBody] Driver driver) 
         {
-            string updatedDriverInfo;
+            Driver updatedDriverInfo;
             try
             {
                 updatedDriverInfo = _driverRepo.UpdateDriver(driver);
