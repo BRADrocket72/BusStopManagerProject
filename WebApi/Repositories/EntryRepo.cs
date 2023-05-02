@@ -1,3 +1,5 @@
+using Domain;
+using Microsoft.EntityFrameworkCore;
 public class EntryRepo
 {
     private readonly DbContext _context;

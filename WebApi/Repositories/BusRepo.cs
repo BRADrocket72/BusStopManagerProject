@@ -1,3 +1,6 @@
+using Domain;
+using Microsoft.EntityFrameworkCore;
+
 public class BusRepo
 {
     private readonly DbContext _context;

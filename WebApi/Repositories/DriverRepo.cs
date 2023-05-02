@@ -1,3 +1,6 @@
+using Domain;
+using Microsoft.EntityFrameworkCore;
+
 public class DriverRepo
 {
     private readonly DbContext _context;
