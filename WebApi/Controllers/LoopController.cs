@@ -14,7 +14,7 @@ namespace WebApi.Controllers
             _loopRepo = loopRepo;
         }
 
-        [HttpGet("GetAllLoops")]
+        [HttpGet("GetAll")]
         public IActionResult GetAllLoops(){
             var loops = _loopRepo.GetAllLoops();
             return Ok(loops);

@@ -17,7 +17,7 @@ namespace WebApi.Controllers {
             _driverRepo = driverRepo;
         }
 
-        [HttpGet("GetAllDrivers")]
+        [HttpGet("GetAll")]
         public IActionResult GetAllDrivers(){
             var drivers = _driverRepo.GetAllDrivers();
             return Ok(drivers);

@@ -14,7 +14,7 @@ namespace WebApi.Controllers
             _routeRepo = routeRepo;
         }
 
-        [HttpGet("GetAllRoutes")]
+        [HttpGet("GetAll")]
         public IActionResult GetAllRoutes(){
             var routes = _routeRepo.GetAllRoutes();
             return Ok(routes);

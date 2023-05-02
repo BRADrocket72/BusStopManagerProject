@@ -15,7 +15,7 @@ namespace WebApi.Controller
             _busRepo = busRepo;
         }
 
-        [HttpGet("GetAllBusses")]
+        [HttpGet("GetAll")]
         public IActionResult GetAllBusses(){
             var busses = _busRepo.GetAllBuses();
             return Ok(busses);
