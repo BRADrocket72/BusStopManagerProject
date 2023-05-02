@@ -8,14 +8,14 @@ async function initMap() {
     const { AdvancedMarkerView } = await google.maps.importLibrary("marker");
 
     // The map, centered at Uluru
-    console.log(POINTS)
     map = new Map(document.getElementById("map"), {
-        zoom: 4,
+        zoom: 13,
         center: POINTS[0],
         mapId: "DEMO_MAP_ID",
     });
-
+    console.log(POINTS)
     POINTS.forEach(point => {
+
         const marker = new AdvancedMarkerView({
             map: map,
             position: point,
