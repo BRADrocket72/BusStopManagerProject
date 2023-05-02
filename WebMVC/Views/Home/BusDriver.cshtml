@@ -1,22 +1,25 @@
-@model BusDriverViewModel
+@model WebMVC.Models.BusDriverViewModel
 @{
-    ViewData["Title"] = "BusTracker";
+    ViewData["Title"] = "BusDriver";
 }
+<link rel="stylesheet" type="text/css" href="cshtml.css">
 
 <div>
     <h1>Bus Route Tracker</h1>
 
-
-    <div>
-        <h3>Boarding #: 1</h3>
-        <button type="button" class="btn btn-lg" onclick="@(() => Model.IncreaseOnBoard())">+</button>
-        <button type="button" class="btn btn-lg" onclick="@(() => Model.DecreaseOnBoard())">-</button>
-    </div>
+    <form method=" = "post>
+        <label for = "Boarding">Boarding #</label>
+        <input type="number" id="Boarding" name="Boarding"min="0"max="100">
 
 
-    <div>
-        <h3>Departing #: 33</h3>
-        <button type="button" class="btn btn-lg" onclick="@(() => Model.IncreaseDeparting())">+</button>
-        <button type="button" class="btn btn-lg" onclick="@(() => Model.DecreaseDeparting())">-</button>
-    </div>
+        <label for = "Exiting">Exiting #</label>
+        <input type="number" id="Exiting" name="Exiting"min="0"max="100">
+
+        <input type="submit" value="Submit">
+    </form>
+
+    @if (ViewData["TotalPassengers"] != null)
+    {
+        <div>Total passengers: @ViewData["TotalPassengers"]</div>
+    }
 </div>
