@@ -16,13 +16,15 @@ namespace WebApi.Controllers {
         }
 
         [HttpGet("GetAll")]
-        public IActionResult GetAllDrivers(){
+        public IActionResult GetAllDrivers()
+        {
             var drivers = _driverRepo.GetAllDrivers();
             return Ok(drivers);
         }
 
         [HttpGet("GetDriverById")]
-        public IActionResult GetDriverById(int id){
+        public IActionResult GetDriverById(int id)
+        {
             var driver = _driverRepo.GetDriverById(id);
             if (driver == null){
                 return NotFound();

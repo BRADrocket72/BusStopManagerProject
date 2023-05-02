@@ -16,13 +16,15 @@ namespace WebApi.Controller
         }
 
         [HttpGet("GetAll")]
-        public IActionResult GetAllBusses(){
+        public IActionResult GetAllBusses()
+        {
             var busses = _busRepo.GetAllBuses();
             return Ok(busses);
         }
 
         [HttpGet("GetBusById")]
-        public IActionResult GetBusById(int id){
+        public IActionResult GetBusById(int id)
+        {
             var bus = _busRepo.GetBusById(id);
             if (bus == null){
                 return NotFound();
@@ -33,7 +35,7 @@ namespace WebApi.Controller
         [HttpPost("CreateBus")]
         public IActionResult CreateBus(Bus bus)
         {
-            string busInfo;
+            Bus busInfo;
             try
             {
                 busInfo = _busRepo.AddBus(bus);
@@ -46,8 +48,9 @@ namespace WebApi.Controller
         }
 
         [HttpPost("Update/UpdateBusInfo")]
-        public IActionResult UpdateBusInfo([FromBody]Bus bus) {
-            string updatedBusInfo;
+        public IActionResult UpdateBusInfo([FromBody]Bus bus) 
+        {
+            Bus updatedBusInfo;
             try
             {
                 updatedBusInfo = _busRepo.UpdateBus(bus);

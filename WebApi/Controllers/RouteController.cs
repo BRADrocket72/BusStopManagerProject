@@ -5,6 +5,8 @@ using Route = Domain.Route;
 
 namespace WebApi.Controllers
 {
+    [ApiController]
+    [Route("[Controller]")]
     public class RouteController : ControllerBase
     {
         private readonly RouteRepo _routeRepo;

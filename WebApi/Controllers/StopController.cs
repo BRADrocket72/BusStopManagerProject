@@ -5,6 +5,8 @@ using System.Linq;
 
 namespace WebApi.Controllers
 {
+    [ApiController]
+    [Route("[Controller]")]
     public class StopController : ControllerBase
     {
         private readonly StopRepo _stopRepo;

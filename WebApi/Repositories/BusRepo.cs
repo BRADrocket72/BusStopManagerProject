@@ -23,7 +23,7 @@ public class BusRepo
     }
 
     // Add a new bus to the database
-    public void AddBus(Bus bus)
+    public Bus AddBus(Bus bus)
     {
         _context.Set<Bus>().Add(bus);
         _context.SaveChanges();
@@ -31,16 +31,21 @@ public class BusRepo
     }
 
     // Update a bus in the database
-    public void UpdateBus(Bus bus)
+    public Bus UpdateBus(Bus bus)
     {
         _context.Entry(bus).State = EntityState.Modified;
         _context.SaveChanges();
+        return bus;
     }
 
     // Delete a bus from the database
-    public void DeleteBus(Bus bus)
+    public void DeleteBus(int busId)
     {
-        _context.Set<Bus>().Remove(bus);
-        _context.SaveChanges();
+        var bus = _context.Set<Bus>().Find(busId);
+        if (bus != null)
+        {
+            _context.Set<Bus>().Remove(bus);
+            _context.SaveChanges();
+        }
     }
 }
