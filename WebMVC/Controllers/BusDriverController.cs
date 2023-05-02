@@ -1,31 +1,22 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using WebMVC.Models;
 
-namespace WebMVC.Controllers;
-
-public class BusDriverController : Controller
+namespace WebMVC.Controllers
 {
-    private readonly ILogger<BusDriverController> _logger;
-
-    public BusDriverController(ILogger<BusDriverController> logger)
+    public class BusDriverController : Controller
     {
-        _logger = logger;
-    }
+        public IActionResult Index()
+        {
+            return View();
+        }
 
-    public IActionResult Index()
-    {
-        return View();
-    }
+        [HttpPost]
+        public IActionResult Index(BusDriverViewModel model)
+        {
+            int totalPassengers = model.Boarding - model.Exiting;
+            ViewData["TotalPassengers"] = totalPassengers;
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
+        }
     }
 }
