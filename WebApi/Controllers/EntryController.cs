@@ -5,6 +5,8 @@ using System.Linq;
 
 namespace WebApi.Controllers
 {
+    [ApiController]
+    [Route("[Controller]")]
     public class EntryController : ControllerBase
     {
         private readonly EntryRepo _entryRepo;
@@ -15,13 +17,15 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("GetAll")]
-        public IActionResult GetAllEntries(){
+        public IActionResult GetAllEntries()
+        {
             var entries = _entryRepo.GetAllEntries();
             return Ok(entries);
         }
 
         [HttpGet("GetEntryById")]
-        public IActionResult GetEntryById(int id){
+        public IActionResult GetEntryById(int id)
+        {
             var entry = _entryRepo.GetEntryById(id);
             if (entry == null){
                 return NotFound();
@@ -32,7 +36,7 @@ namespace WebApi.Controllers
         [HttpPost("CreateEntry")]
         public IActionResult CreateEntry([FromBody] Entry entry)
         {
-            string entryInfo;
+            Entry entryInfo;
             try
             {
                 entryInfo = _entryRepo.AddEntry(entry);
@@ -44,9 +48,9 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("Update/UpdateEntryInfo")]
-        public IActionResult UpdateEntryInformation([FromBody] UpdateEntry entry) 
+        public IActionResult UpdateEntryInformation([FromBody] Entry entry) 
         {
-            string updatedEntryInfo;
+            Entry updatedEntryInfo;
             try
             {
                 updatedEntryInfo = _entryRepo.UpdateEntry(entry);
@@ -59,7 +63,8 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete("Delete/Entry")]
-        public IActionResult DeleteEntry(int id) {
+        public IActionResult DeleteEntry(int id) 
+        {
             try 
             {
                 _entryRepo.DeleteEntry(id);
