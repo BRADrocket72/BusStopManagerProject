@@ -15,15 +15,18 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("GetAll")]
-        public IActionResult GetAllLoops(){
+        public IActionResult GetAllLoops()
+        {
             var loops = _loopRepo.GetAllLoops();
             return Ok(loops);
         }
 
         [HttpGet("GetLoopById")]
-        public IActionResult GetLoopById(int id){
-            var loop = _loopRepo.GetLoopById(id);
-            if (loop == null){
+        public IActionResult GetLoopById(int id)
+        {
+            Loop loop = _loopRepo.GetLoopById(id);
+            if (loop == null)
+            {
                 return NotFound();
             }
             return Ok(loop);
@@ -32,26 +35,27 @@ namespace WebApi.Controllers
         [HttpPost("CreateLoop")]
         public IActionResult CreateLoop([FromBody] Loop Loop)
         {
-            string loopInfo;
+            Loop loopInfo;
             try
             {
                 loopInfo = _loopRepo.AddLoop(Loop);
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 return new ObjectResult(e.Message) { StatusCode = 403 }; //Forbidden
             }
             return Ok(loopInfo);
         }
 
         [HttpPost("Update/UpdateLoopInfo")]
-        public IActionResult UpdateLoopInformation([FromBody] Loop loop) 
+        public IActionResult UpdateLoopInformation([FromBody] Loop loop)
         {
-            string updatedLoopInfo;
+            Loop updatedLoopInfo;
             try
             {
-                updatedLoopInfo = _loopRepo.UpdateLoop(Loop);
+                updatedLoopInfo = _loopRepo.UpdateLoop(loop);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
@@ -59,12 +63,14 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete("Delete/Loop")]
-        public IActionResult DeleteLoop(int id) {
-            try 
+        public IActionResult DeleteLoop(int id)
+        {
+            try
             {
                 _loopRepo.DeleteLoop(id);
             }
-            catch (Exception e){
+            catch (Exception e)
+            {
                 return BadRequest(e.Message);
             }
             return Ok("Loop Deleted.");

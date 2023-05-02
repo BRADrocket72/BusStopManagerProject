@@ -22,23 +22,29 @@ public class LoopRepo
     }
 
     // Add a new loop to the database
-    public void AddLoop(Loop loop)
+    public Loop AddLoop(Loop loop)
     {
         _context.Set<Loop>().Add(loop);
         _context.SaveChanges();
+        return loop;
     }
 
     // Update a loop in the database
-    public void UpdateLoop(Loop loop)
+    public Loop UpdateLoop(Loop loop)
     {
         _context.Entry(loop).State = EntityState.Modified;
         _context.SaveChanges();
+        return loop;
     }
 
     // Delete a loop from the database
-    public void DeleteLoop(Loop loop)
+    public void DeleteLoop(int loopId)
     {
-        _context.Set<Loop>().Remove(loop);
-        _context.SaveChanges();
+        var loop = _context.Set<Loop>().Find(loopId);
+        if (loop != null)
+        {
+            _context.Set<Loop>().Remove(loop);
+            _context.SaveChanges();
+        }
     }
 }

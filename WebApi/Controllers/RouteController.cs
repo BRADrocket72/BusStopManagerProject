@@ -15,15 +15,18 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("GetAll")]
-        public IActionResult GetAllRoutes(){
+        public IActionResult GetAllRoutes()
+        {
             var routes = _routeRepo.GetAllRoutes();
             return Ok(routes);
         }
 
         [HttpGet("GetRouteById")]
-        public IActionResult GetRouteById(int id){
+        public IActionResult GetRouteById(int id)
+        {
             var route = _routeRepo.GetRouteById(id);
-            if (route == null){
+            if (route == null)
+            {
                 return NotFound();
             }
             return Ok(route);
@@ -32,26 +35,27 @@ namespace WebApi.Controllers
         [HttpPost("CreateRoute")]
         public IActionResult CreateRoute([FromBody] Route Route)
         {
-            string routeInfo;
+            Route routeInfo;
             try
             {
                 routeInfo = _routeRepo.AddRoute(Route);
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 return new ObjectResult(e.Message) { StatusCode = 403 }; //Forbidden
             }
             return Ok(routeInfo);
         }
 
         [HttpPost("Update/UpdateRouteInfo")]
-        public IActionResult UpdateRouteInformation([FromBody] Route Route) 
+        public IActionResult UpdateRouteInformation([FromBody] Route Route)
         {
-            string updatedRouteInfo;
+            Route updatedRouteInfo;
             try
             {
                 updatedRouteInfo = _routeRepo.UpdateRoute(Route);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
@@ -59,12 +63,14 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete("Delete/Route")]
-        public IActionResult DeleteRoute(int id) {
-            try 
+        public IActionResult DeleteRoute(int id)
+        {
+            try
             {
                 _routeRepo.DeleteRoute(id);
             }
-            catch (Exception e){
+            catch (Exception e)
+            {
                 return BadRequest(e.Message);
             }
             return Ok("Route Deleted.");

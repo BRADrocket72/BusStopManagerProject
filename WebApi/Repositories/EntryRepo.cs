@@ -26,6 +26,7 @@ public class EntryRepo
     {
         _context.Set<Entry>().Add(entry);
         _context.SaveChanges();
+        return entry;
     }
 
     // Update an entry in the database

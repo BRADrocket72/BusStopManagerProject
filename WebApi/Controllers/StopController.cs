@@ -15,15 +15,18 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("GetAll")]
-        public IActionResult GetAllStops(){
-            var stops = _routeRepo.GetAllStops();
+        public IActionResult GetAllStops()
+        {
+            var stops = _stopRepo.GetAllStops();
             return Ok(stops);
         }
 
         [HttpGet("GetStopById")]
-        public IActionResult GetStopById(int id){
+        public IActionResult GetStopById(int id)
+        {
             var stop = _stopRepo.GetStopById(id);
-            if (stop == null){
+            if (stop == null)
+            {
                 return NotFound();
             }
             return Ok(stop);
@@ -32,26 +35,27 @@ namespace WebApi.Controllers
         [HttpPost("CreateStop")]
         public IActionResult CreateStop([FromBody] Stop stop)
         {
-            string stopInfo;
+            Stop stopInfo;
             try
             {
-               stopInfo = _stopRepo.AddStop(stop);
+                stopInfo = _stopRepo.AddStop(stop);
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 return new ObjectResult(e.Message) { StatusCode = 403 }; //Forbidden
             }
             return Ok(stopInfo);
         }
 
         [HttpPost("Update/UpdateStopInfo")]
-        public IActionResult UpdateStopInformation([FromBody] Stop stop) 
+        public IActionResult UpdateStopInformation([FromBody] Stop stop)
         {
-            string updatedStopInfo;
+            Stop updatedStopInfo;
             try
             {
                 updatedStopInfo = _stopRepo.UpdateStop(stop);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
@@ -59,12 +63,14 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete("Delete/Stop")]
-        public IActionResult DeleteStop(int id) {
-            try 
+        public IActionResult DeleteStop(int id)
+        {
+            try
             {
                 _stopRepo.DeleteStop(id);
             }
-            catch (Exception e){
+            catch (Exception e)
+            {
                 return BadRequest(e.Message);
             }
             return Ok("Stop Deleted.");

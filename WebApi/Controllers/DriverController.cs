@@ -33,7 +33,7 @@ namespace WebApi.Controllers {
         [HttpPost("CreateDriver")]
         public IActionResult CreateDriver([FromBody] Driver driver)
         {
-            string driverInfo;
+            Driver driverInfo;
             try
             {
                 driverInfo = _driverRepo.AddDriver(driver);

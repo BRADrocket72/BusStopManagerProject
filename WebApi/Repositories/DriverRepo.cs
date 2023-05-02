@@ -27,6 +27,7 @@ public class DriverRepo
     {
         _context.Set<Driver>().Add(driver);
         _context.SaveChanges();
+        return driver;
     }
 
     // Update a driver in the database

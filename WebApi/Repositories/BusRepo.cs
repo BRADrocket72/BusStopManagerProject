@@ -27,6 +27,7 @@ public class BusRepo
     {
         _context.Set<Bus>().Add(bus);
         _context.SaveChanges();
+        return bus;
     }
 
     // Update a bus in the database
