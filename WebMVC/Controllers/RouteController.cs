@@ -23,12 +23,14 @@ public class RouteController : Controller
         return View(routes);
     }
 
+
+
+
     public IActionResult RouteMap()
     {
-        List<RouteViewModel> routes = new List<RouteViewModel> { new RouteViewModel { Id = Guid.NewGuid(), Order = 2 } };
+        List<MapPointViewModel> stops = new List<MapPointViewModel> { new MapPointViewModel { lat = -25.344, lng = 131.031 }, new MapPointViewModel { lat = -20.344, lng = 121.031 } };
 
-
-        return View(routes);
+        return View(stops);
     }
 
 

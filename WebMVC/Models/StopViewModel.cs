@@ -11,8 +11,8 @@ namespace WebMVC.Models
     {
         public Guid Id;
         public string Name;
-        public float Latitude;
-        public float Longitude;
+        public double Latitude;
+        public double Longitude;
 
 
     }
