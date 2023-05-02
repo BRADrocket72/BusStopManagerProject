@@ -44,7 +44,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("Update/UpdateEntryInfo")]
-        public IActionResult UpdateEntryInformation([FromBody] UpdateEntry entry) 
+        public IActionResult UpdateEntryInformation([FromBody] Entry entry) 
         {
             string updatedEntryInfo;
             try
