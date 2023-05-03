@@ -6,11 +6,13 @@ var builder = WebApplication.CreateBuilder(args);
 var folder = Environment.SpecialFolder.LocalApplicationData;
 var path = Environment.GetFolderPath(folder);
 var dbPath = Path.Join(path, "BusStopProject.db");
-var connectionString = builder.Configuration.GetConnectionString("ConnectionString") ?? "Data Source=BusStopProject.db";
 
-builder.Services.AddDbContext<BusContext>(options => options.UseInMemoryDatabase("busstopproject"));
+builder.Services.AddDbContext<BusContext>(options => options.UseInMemoryDatabase("ConnectionString"));
 
+builder.Services.AddIdentityCore<IdentityUser>();
 // Add services to the container.
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<BusContext>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

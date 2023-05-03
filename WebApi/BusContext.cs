@@ -14,6 +14,7 @@ public class BusContext : Microsoft.EntityFrameworkCore.DbContext
     public DbSet<Stop> Stops { get; set; }
     public string Path { get; }
 
+    public BusContext(DbContextOptions options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
