@@ -4,45 +4,44 @@ using WebMVC.Models;
 
 namespace WebMVC.Controllers;
 
-public class LoginController : Controller
+public class RegisterController : Controller
 {
-    private readonly ILogger<LoginController> _logger;
+    private readonly ILogger<RegisterController> _logger;
 
-    public LoginController(ILogger<LoginController> logger)
+    public RegisterController(ILogger<RegisterController> logger)
     {
         _logger = logger;
     }
 
 
 
-    public IActionResult Login()
-    {
-        return View();
-    }
-
-    public IActionResult LoginUser(){
-        return View();
-    }
-
     public IActionResult Register()
     {
+
         return View();
     }
 
-        public IActionResult RegisterUser()
+    public IActionResult RegisterUser()
+    {
+        return View();
+    }
+
+    public void OnPost()
     {
         var client = new HttpClient();
         client.BaseAddress = new Uri("http://localhost:5279/");
-        var responseTask = client.GetAsync("user/register");
+        var responseTask = client.GetAsync("route/getall");
         responseTask.Wait();
         var result = responseTask.Result;
 
         if (result.IsSuccessStatusCode)
         {
-           
+            var readTask = result.Content.ReadFromJsonAsync<List<RouteViewModel>>();
+            // routes = readTask.Result;
         }
-        return View();
     }
+
+
 
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

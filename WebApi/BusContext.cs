@@ -4,7 +4,6 @@ using Route = Domain.Route;
 
 public class BusContext : Microsoft.EntityFrameworkCore.DbContext
 {
-    public BusContext(DbContextOptions<BusContext> options) : base(options) { }
 
     public DbSet<Bus> Buses { get; set; }
     public DbSet<Driver> Drivers { get; set; }
