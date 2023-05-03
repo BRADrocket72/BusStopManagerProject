@@ -1,10 +1,10 @@
 using Domain;
 using Microsoft.EntityFrameworkCore;
-public class EntryRepo
+public class EntryRepo : IEntryRepo
 {
-    private readonly DbContext _context;
+    private readonly BusContext _context;
 
-    public EntryRepo(DbContext context)
+    public EntryRepo(BusContext context)
     {
         _context = context;
     }

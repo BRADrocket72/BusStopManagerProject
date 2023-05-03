@@ -9,9 +9,9 @@ namespace WebApi.Controllers
     [Route("[Controller]")]
     public class RouteController : ControllerBase
     {
-        private readonly RouteRepo _routeRepo;
+        private readonly IRouteRepo _routeRepo;
 
-        public RouteController(RouteRepo routeRepo)
+        public RouteController(IRouteRepo routeRepo)
         {
             _routeRepo = routeRepo;
         }

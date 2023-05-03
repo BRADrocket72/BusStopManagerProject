@@ -8,9 +8,9 @@ namespace WebApi.Controller
     [Route("[Controller]")]
     public class BusController : ControllerBase
     {
-        private readonly BusRepo _busRepo;
+        private readonly IBusRepo _busRepo;
 
-        public BusController(BusRepo busRepo)
+        public BusController(IBusRepo busRepo)
         {
             _busRepo = busRepo;
         }
