@@ -40,7 +40,13 @@ public class UserController : ControllerBase
         }
 
         return Ok();
+    }
 
+    public async Task<Microsoft.AspNetCore.Identity.SignInResult> LoginAsync(string userName, string password, bool rememberMe, SignInManager<Driver> signInManager)
+    {
+        // Use the SignInManager to sign in the user
+        var result = await signInManager.PasswordSignInAsync(userName, password, rememberMe, lockoutOnFailure: false);
 
+        return result;
     }
 }
