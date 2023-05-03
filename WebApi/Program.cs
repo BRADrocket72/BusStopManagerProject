@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Domain;
 
 var builder = WebApplication.CreateBuilder(args);
 var folder = Environment.SpecialFolder.LocalApplicationData;
@@ -9,10 +10,18 @@ var dbPath = Path.Join(path, "BusStopProject.db");
 
 builder.Services.AddDbContext<BusContext>(options => options.UseInMemoryDatabase("ConnectionString"));
 
-builder.Services.AddIdentityCore<IdentityUser>();
+builder.Services.AddIdentityCore<Driver>();
 // Add services to the container.
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<Driver>()
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<BusContext>();
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy =>
+        policy.RequireClaim("IsAdmin", "true"));
+
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
