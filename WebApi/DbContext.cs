@@ -1,7 +1,14 @@
+using Domain;
 using Microsoft.EntityFrameworkCore;
+using Route = Domain.Route;
 
 public class BusContext : DbContext
 {
+    private readonly IConfiguration _configuration;
+    public BusContext(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
     public DbSet<Bus> Buses { get; set; }
     public DbSet<Driver> Drivers { get; set; }
     public DbSet<Entry> Entries { get; set; }
@@ -11,13 +18,12 @@ public class BusContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        // Configure your database connection here
-        optionsBuilder.UseSqlServer("Your_Connection_String");
+        var connectionString = _configuration.GetConnectionString("SqlLite");
+        optionsBuilder.UseSqlite(connectionString);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // Configure the entity models and their relationships here
         modelBuilder.Entity<Bus>().HasKey(b => b.Id);
         modelBuilder.Entity<Driver>().HasKey(d => d.Id);
         modelBuilder.Entity<Entry>().HasKey(e => e.Id);

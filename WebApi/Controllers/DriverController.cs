@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Data.SqLite;
-using Microsoft.EntityFrameworkCore.DbContext;
 using Domain;
-using WebApi.Data;
+
 
 namespace WebApi.Controllers {
 
@@ -18,13 +16,15 @@ namespace WebApi.Controllers {
         }
 
         [HttpGet("GetAll")]
-        public IActionResult GetAllDrivers(){
+        public IActionResult GetAllDrivers()
+        {
             var drivers = _driverRepo.GetAllDrivers();
             return Ok(drivers);
         }
 
         [HttpGet("GetDriverById")]
-        public IActionResult GetDriverById(int id){
+        public IActionResult GetDriverById(int id)
+        {
             var driver = _driverRepo.GetDriverById(id);
             if (driver == null){
                 return NotFound();
@@ -35,7 +35,7 @@ namespace WebApi.Controllers {
         [HttpPost("CreateDriver")]
         public IActionResult CreateDriver([FromBody] Driver driver)
         {
-            string driverInfo;
+            Driver driverInfo;
             try
             {
                 driverInfo = _driverRepo.AddDriver(driver);
@@ -50,7 +50,7 @@ namespace WebApi.Controllers {
         [HttpPost("Update/UpdateDriver")]
         public IActionResult UpdateDriver([FromBody] Driver driver) 
         {
-            string updatedDriverInfo;
+            Driver updatedDriverInfo;
             try
             {
                 updatedDriverInfo = _driverRepo.UpdateDriver(driver);

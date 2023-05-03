@@ -1,3 +1,5 @@
+using Domain;
+using Microsoft.EntityFrameworkCore;
 public class EntryRepo
 {
     private readonly DbContext _context;
@@ -20,23 +22,29 @@ public class EntryRepo
     }
 
     // Add a new entry to the database
-    public void AddEntry(Entry entry)
+    public Entry AddEntry(Entry entry)
     {
         _context.Set<Entry>().Add(entry);
         _context.SaveChanges();
+        return entry;
     }
 
     // Update an entry in the database
-    public void UpdateEntry(Entry entry)
+    public Entry UpdateEntry(Entry entry)
     {
         _context.Entry(entry).State = EntityState.Modified;
         _context.SaveChanges();
+        return entry;
     }
 
     // Delete an entry from the database
-    public void DeleteEntry(Entry entry)
+    public void DeleteEntry(int entryId)
     {
-        _context.Set<Entry>().Remove(entry);
-        _context.SaveChanges();
+        var entry = _context.Set<Entry>().Find(entryId);
+        if (entry != null)
+        {
+            _context.Set<Entry>().Remove(entry);
+            _context.SaveChanges();
+        }
     }
 }
