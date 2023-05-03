@@ -19,10 +19,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IBusRepo, BusRepo>();
 builder.Services.AddScoped<IEntryRepo, EntryRepo>();
-builder.Services.AddScoped<IBusRepo, BusRepo>();
-builder.Services.AddScoped<IBusRepo, BusRepo>();
-builder.Services.AddScoped<IBusRepo, BusRepo>();
-builder.Services.AddScoped<IBusRepo, BusRepo>();
+builder.Services.AddScoped<IDriverRepo, DriverRepo>();
+builder.Services.AddScoped<IStopRepo, StopRepo>();
+builder.Services.AddScoped<IRouteRepo, RouteRepo>();
+builder.Services.AddScoped<ILoopRepo, LoopRepo>();
 
 var app = builder.Build();
 
