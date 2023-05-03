@@ -26,11 +26,11 @@ public class RegisterController : Controller
         return View();
     }
 
-    public void OnPost()
+    public IActionResult OnPost(RegisterViewModel model)
     {
         var client = new HttpClient();
         client.BaseAddress = new Uri("http://localhost:5279/");
-        var responseTask = client.GetAsync("route/getall");
+        var responseTask = client.PostAsJsonAsync("User/Register", model);
         responseTask.Wait();
         var result = responseTask.Result;
 
@@ -39,6 +39,7 @@ public class RegisterController : Controller
             var readTask = result.Content.ReadFromJsonAsync<List<RouteViewModel>>();
             // routes = readTask.Result;
         }
+        return Register();
     }
 
 
