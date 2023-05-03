@@ -1,6 +1,14 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+var folder = Environment.SpecialFolder.LocalApplicationData;
+var path = Environment.GetFolderPath(folder);
+var dbPath = Path.Join(path, "BusStopProject.db");
+var connectionString = builder.Configuration.GetConnectionString("ConnectionString") ?? "Data Source=BusStopProject.db";
+
+builder.Services.AddDbContext<BusContext>(options => options.UseInMemoryDatabase("busstopproject"));
 
 // Add services to the container.
 
@@ -15,10 +23,7 @@ builder.Services.AddScoped<IBusRepo, BusRepo>();
 builder.Services.AddScoped<IBusRepo, BusRepo>();
 builder.Services.AddScoped<IBusRepo, BusRepo>();
 builder.Services.AddScoped<IBusRepo, BusRepo>();
-builder.Services.AddDbContext<BusContext>(options =>
-{
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
