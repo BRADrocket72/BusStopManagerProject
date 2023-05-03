@@ -2,7 +2,7 @@ using Domain;
 using Microsoft.EntityFrameworkCore;
 using Route = Domain.Route;
 
-public class BusContext : DbContext
+public class BusContext : Microsoft.EntityFrameworkCore.DbContext
 {
     private readonly IConfiguration _configuration;
     public BusContext(IConfiguration configuration)

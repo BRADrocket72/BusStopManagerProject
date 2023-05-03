@@ -1,11 +1,11 @@
 using Domain;
 using Microsoft.EntityFrameworkCore;
 
-public class BusRepo
+public class BusRepo : IBusRepo
 {
-    private readonly DbContext _context;
+    private readonly BusContext _context;
 
-    public BusRepo(DbContext context)
+    public BusRepo(BusContext context)
     {
         _context = context;
     }

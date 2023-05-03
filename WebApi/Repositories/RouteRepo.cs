@@ -2,11 +2,11 @@ using Domain;
 using Microsoft.EntityFrameworkCore;
 using Route = Domain.Route;
 
-public class RouteRepo
+public class RouteRepo : IRouteRepo
 {
-    private readonly DbContext _context;
+    private readonly BusContext _context;
 
-    public RouteRepo(DbContext context)
+    public RouteRepo(BusContext context)
     {
         _context = context;
     }

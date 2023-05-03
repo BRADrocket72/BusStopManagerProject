@@ -8,7 +8,14 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<DbContext>(options =>
+builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IBusRepo, BusRepo>();
+builder.Services.AddScoped<IEntryRepo, EntryRepo>();
+builder.Services.AddScoped<IBusRepo, BusRepo>();
+builder.Services.AddScoped<IBusRepo, BusRepo>();
+builder.Services.AddScoped<IBusRepo, BusRepo>();
+builder.Services.AddScoped<IBusRepo, BusRepo>();
+builder.Services.AddDbContext<BusContext>(options =>
 {
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });

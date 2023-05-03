@@ -1,10 +1,10 @@
 using Domain;
 using Microsoft.EntityFrameworkCore;
-public class LoopRepo
+public class LoopRepo : ILoopRepo
 {
-    private readonly DbContext _context;
+    private readonly BusContext _context;
 
-    public LoopRepo(DbContext context)
+    public LoopRepo(BusContext context)
     {
         _context = context;
     }

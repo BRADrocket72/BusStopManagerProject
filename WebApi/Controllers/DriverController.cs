@@ -8,9 +8,9 @@ namespace WebApi.Controllers {
     [Route("[Controller]")]
     public class DriverController : ControllerBase
     {
-        private readonly DriverRepo _driverRepo;
+        private readonly IDriverRepo _driverRepo;
         
-        public DriverController(DriverRepo driverRepo)
+        public DriverController(IDriverRepo driverRepo)
         {
             _driverRepo = driverRepo;
         }

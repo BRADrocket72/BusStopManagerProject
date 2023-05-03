@@ -9,9 +9,9 @@ namespace WebApi.Controllers
     [Route("[Controller]")]
     public class StopController : ControllerBase
     {
-        private readonly StopRepo _stopRepo;
+        private readonly IStopRepo _stopRepo;
 
-        public StopController(StopRepo stopRepo)
+        public StopController(IStopRepo stopRepo)
         {
             _stopRepo = stopRepo;
         }
