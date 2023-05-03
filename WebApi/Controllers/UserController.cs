@@ -6,13 +6,15 @@ using Microsoft.Extensions.Logging;
 using WebMVC.Models;
 using Domain;
 
+[ApiController]
+[Route("[Controller]")]
 public class UserController : ControllerBase
 {
-    private readonly UserManager<IdentityUser> _userManager;
-    private readonly SignInManager<IdentityUser> _signInManager;
+    private readonly UserManager<Driver> _userManager;
+    private readonly SignInManager<Driver> _signInManager;
     private readonly ILogger<UserController> _logger;
 
-    public UserController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ILogger<UserController> logger)
+    public UserController(UserManager<Driver> userManager, SignInManager<Driver> signInManager, ILogger<UserController> logger)
     {
         _userManager = userManager;
         _signInManager = signInManager;
@@ -20,12 +22,12 @@ public class UserController : ControllerBase
     }
 
 
-    [HttpPost]
+    [HttpPost("Register")]
     public async Task<IActionResult> Register(RegisterViewModel model)
     {
         var user = new Driver
         {
-            UserName = model.FirstName + model.LastName,
+            UserName = model.FirstName,
             FirstName = model.FirstName,
             LastName = model.LastName,
             IsAdmin = false
@@ -36,17 +38,25 @@ public class UserController : ControllerBase
         // If the user was successfully created and is the first user in the system, make them an admin
         if (result.Succeeded && _userManager.Users.Count() == 1)
         {
-            await _userManager.AddToRoleAsync(user, "Admin");
+            await _userManager.AddClaimAsync(user, new Claim("IsAdmin", "true"));
         }
 
-        return Ok();
+        return Ok(result);
     }
 
-    public async Task<Microsoft.AspNetCore.Identity.SignInResult> LoginAsync(string userName, string password, bool rememberMe, SignInManager<Driver> signInManager)
+    [HttpPost("login")]
+    public async Task<IActionResult> LoginAsync(string username, string password)
     {
         // Use the SignInManager to sign in the user
-        var result = await signInManager.PasswordSignInAsync(userName, password, rememberMe, lockoutOnFailure: false);
+        var result = await _signInManager.PasswordSignInAsync(username, password, false, lockoutOnFailure: false);
 
-        return result;
+        if (result.Succeeded)
+        {
+            return Ok();
+        }
+        else
+        {
+            return Unauthorized(result);
+        }
     }
 }
