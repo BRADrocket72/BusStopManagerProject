@@ -1,11 +1,11 @@
 using Domain;
 using Microsoft.EntityFrameworkCore;
 
-public class StopRepo
+public class StopRepo : IStopRepo
 {
-    private readonly DbContext _context;
+    private readonly BusContext _context;
 
-    public StopRepo(DbContext context)
+    public StopRepo(BusContext context)
     {
         _context = context;
     }

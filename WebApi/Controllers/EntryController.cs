@@ -9,9 +9,9 @@ namespace WebApi.Controllers
     [Route("[Controller]")]
     public class EntryController : ControllerBase
     {
-        private readonly EntryRepo _entryRepo;
+        private readonly IEntryRepo _entryRepo;
 
-        public EntryController(EntryRepo entryRepo)
+        public EntryController(IEntryRepo entryRepo)
         {
             _entryRepo = entryRepo;
         }

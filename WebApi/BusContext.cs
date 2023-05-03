@@ -2,25 +2,17 @@ using Domain;
 using Microsoft.EntityFrameworkCore;
 using Route = Domain.Route;
 
-public class BusContext : DbContext
+public class BusContext : Microsoft.EntityFrameworkCore.DbContext
 {
-    private readonly IConfiguration _configuration;
-    public BusContext(IConfiguration configuration)
-    {
-        _configuration = configuration;
-    }
     public DbSet<Bus> Buses { get; set; }
     public DbSet<Driver> Drivers { get; set; }
     public DbSet<Entry> Entries { get; set; }
     public DbSet<Loop> Loops { get; set; }
     public DbSet<Route> Routes { get; set; }
     public DbSet<Stop> Stops { get; set; }
+    public string Path {get;}
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        var connectionString = _configuration.GetConnectionString("SqlLite");
-        optionsBuilder.UseSqlite(connectionString);
-    }
+    public BusContext(DbContextOptions<BusContext> options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

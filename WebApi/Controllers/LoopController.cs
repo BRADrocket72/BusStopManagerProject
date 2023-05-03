@@ -9,9 +9,9 @@ namespace WebApi.Controllers
     [Route("[Controller]")]
     public class LoopController : ControllerBase
     {
-        private readonly LoopRepo _loopRepo;
+        private readonly ILoopRepo _loopRepo;
 
-        public LoopController(LoopRepo loopRepo)
+        public LoopController(ILoopRepo loopRepo)
         {
             _loopRepo = loopRepo;
         }
