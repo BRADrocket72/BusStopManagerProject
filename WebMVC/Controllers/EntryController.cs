@@ -14,11 +14,10 @@ public class EntryController : Controller
         _logger = logger;
     }
 
-
-
     public IActionResult EntriesTable()
     {
         List<EntryViewModel> entrys = new List<EntryViewModel> { new EntryViewModel { Id = Guid.NewGuid(), Boarded = 2, LeftBehind = 2, Timestamp = new DateTime(), Driver = new DriverViewModel { Id = Guid.NewGuid(), FirstName = "brad", LastName = "chad" }, Loop = new LoopViewModel { Id = Guid.NewGuid(), Name = "loop1" } } };
+        _logger.LogInformation("Successfully retrieved entries.");
         return View(entrys);
     }
 

@@ -18,6 +18,7 @@ public class StopsController : Controller
 
     public IActionResult StopsMap()
     {
+        _logger.LogInformation("Rendering StopsMap view");
         List<MapPointViewModel> stops = new List<MapPointViewModel> { new MapPointViewModel { lat = -25.344, lng = 131.031 }, new MapPointViewModel { lat = -20.344, lng = 121.031 } };
 
         return View(stops);
@@ -29,6 +30,7 @@ public class StopsController : Controller
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
+        _logger.LogError("An error occurred while processing the request");
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }

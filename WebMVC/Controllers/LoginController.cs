@@ -13,25 +13,27 @@ public class LoginController : Controller
         _logger = logger;
     }
 
-
-
     public IActionResult Login()
     {
+        _logger.LogInformation("Login page accessed.");
         return View();
     }
 
     public IActionResult LoginUser(){
+        _logger.LogInformation("User login attempted.");
         return View();
     }
 
     public IActionResult Register()
     {
+        _logger.LogInformation("Registration page accessed.");
         return View();
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
+        _logger.LogError("An error occurred on the login page.");
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }
