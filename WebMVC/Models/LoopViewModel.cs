@@ -9,7 +9,7 @@ namespace WebMVC.Models
 {
     public class LoopViewModel : PageModel
     {
-        public Guid Id;
+        public int Id;
         public string Name;
         
 

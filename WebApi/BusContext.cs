@@ -4,15 +4,16 @@ using Route = Domain.Route;
 
 public class BusContext : Microsoft.EntityFrameworkCore.DbContext
 {
+    public BusContext(DbContextOptions<BusContext> options) : base(options) { }
+
     public DbSet<Bus> Buses { get; set; }
     public DbSet<Driver> Drivers { get; set; }
     public DbSet<Entry> Entries { get; set; }
     public DbSet<Loop> Loops { get; set; }
     public DbSet<Route> Routes { get; set; }
     public DbSet<Stop> Stops { get; set; }
-    public string Path {get;}
+    public string Path { get; }
 
-    public BusContext(DbContextOptions<BusContext> options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -17,11 +17,25 @@ public class RouteController : Controller
 
 
 
-    public IActionResult RoutesTable()
+    public ActionResult RoutesTable()
     {
-        List<RouteViewModel> routes = new List<RouteViewModel> { new RouteViewModel { Id = Guid.NewGuid(), Order = 2 } };
+        List<RouteViewModel> routes = new List<RouteViewModel>();
+        var client = new HttpClient();
+        client.BaseAddress = new Uri("http://localhost:5279/");
+        var responseTask = client.GetAsync("route/getall");
+        responseTask.Wait();
+        var result = responseTask.Result;
+
+        if (result.IsSuccessStatusCode)
+        {
+            var readTask = result.Content.ReadFromJsonAsync<List<RouteViewModel>>();
+            routes = readTask.Result;
+        }
+
         return View(routes);
     }
+
+
 
 
 

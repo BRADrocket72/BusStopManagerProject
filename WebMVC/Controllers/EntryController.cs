@@ -18,7 +18,7 @@ public class EntryController : Controller
 
     public IActionResult EntriesTable()
     {
-        List<EntryViewModel> entrys = new List<EntryViewModel> { new EntryViewModel { Id = Guid.NewGuid(), Boarded = 2, LeftBehind = 2, Timestamp = new DateTime(), Driver = new DriverViewModel { Id = Guid.NewGuid(), FirstName = "brad", LastName = "chad" }, Loop = new LoopViewModel { Id = Guid.NewGuid(), Name = "loop1" } } };
+        List<EntryViewModel> entrys = new List<EntryViewModel> { new EntryViewModel { Id = 2, Boarded = 2, LeftBehind = 2, Timestamp = new DateTime(), Driver = new DriverViewModel { Id = 4, FirstName = "brad", LastName = "chad" }, Loop = new LoopViewModel { Id = 9, Name = "loop1" } } };
         return View(entrys);
     }
 

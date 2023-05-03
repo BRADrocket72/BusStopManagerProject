@@ -9,7 +9,7 @@ namespace WebMVC.Models
 {
     public class BusViewModel : PageModel
     {
-        public Guid Id;
+        public int Id;
         public int BusNumber;
 
 
