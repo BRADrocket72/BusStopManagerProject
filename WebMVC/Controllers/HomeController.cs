@@ -1,3 +1,8 @@
+
+using Microsoft.Extensions.Logging;
+using System;
+using System.Linq;
+using Domain;
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -16,10 +21,12 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        _logger.LogInformation("Index action called");
         return View();
     }
     public IActionResult BusDriver()
     {
+        _logger.LogInformation("BusDriver action called");
         return View();
     }
     public IActionResult BusLoopSelection()
@@ -35,6 +42,7 @@ public class HomeController : Controller
 
     public IActionResult Privacy()
     {
+        _logger.LogInformation("Privacy action called");
         return View();
     }
 
@@ -49,6 +57,7 @@ public class HomeController : Controller
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
+        _logger.LogError("Error action called");
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }

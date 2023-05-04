@@ -16,10 +16,10 @@ public class EntryController : Controller
         _logger = logger;
     }
 
-
-
     public IActionResult EntriesTable()
     {
+ 
+        _logger.LogInformation("Successfully retrieved entries.");
         List<EntryViewModel> entrys = new List<EntryViewModel>
         {
             new EntryViewModel { Id = 2, Boarded = 2, LeftBehind = 7, Timestamp = new DateTime(), Driver = new DriverViewModel { Id = 4, FirstName = "brad", LastName = "test" }, Loop = new LoopViewModel { Id = 9, Name = "Green" } },
