@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Domain;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApi.Controllers {
 
+    [Authorize]
     [ApiController]
     [Route("[Controller]")]
     public class DriverController : ControllerBase
