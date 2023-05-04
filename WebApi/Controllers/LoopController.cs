@@ -1,3 +1,6 @@
+
+using Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -7,6 +10,7 @@ using Domain;
 
 namespace WebApi.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[Controller]")]
     public class LoopController : ControllerBase

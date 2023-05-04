@@ -1,4 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
+using Domain;
+using Microsoft.AspNetCore.Authorization;
+pNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
@@ -7,6 +9,7 @@ using Domain;
 
 namespace WebApi.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[Controller]")]
     public class EntryController : ControllerBase

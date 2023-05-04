@@ -3,9 +3,11 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApi.Controllers {
 
+    [Authorize]
     [ApiController]
     [Route("[Controller]")]
     public class DriverController : ControllerBase
