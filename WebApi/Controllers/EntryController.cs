@@ -1,6 +1,6 @@
 using Domain;
 using Microsoft.AspNetCore.Authorization;
-pNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
@@ -14,11 +14,11 @@ namespace WebApi.Controllers
     [Route("[Controller]")]
     public class EntryController : ControllerBase
     {
-        private readonly EntryRepo _entryRepo;
-        private readonly ILogger<DriverController> _logger;
+        private readonly IEntryRepo _entryRepo;
+        private readonly ILogger<EntryController> _logger;
 
 
-        public EntryController(IEntryRepo entryRepo)
+        public EntryController(IEntryRepo entryRepo, ILogger<EntryController> logger)
         {
             _entryRepo = entryRepo;
             _logger = logger;

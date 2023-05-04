@@ -11,10 +11,10 @@ namespace WebApi.Controllers
     [Route("[Controller]")]
     public class RouteController : ControllerBase
     {
-        private readonly RouteRepo _routeRepo;
+        private readonly IRouteRepo _routeRepo;
         private readonly ILogger<RouteController> _logger;
 
-        public RouteController(IRouteRepo routeRepo)
+        public RouteController(IRouteRepo routeRepo, ILogger<RouteController> logger)
         {
             _routeRepo = routeRepo;
             _logger = logger;

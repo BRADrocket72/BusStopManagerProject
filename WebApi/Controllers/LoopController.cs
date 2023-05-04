@@ -15,10 +15,10 @@ namespace WebApi.Controllers
     [Route("[Controller]")]
     public class LoopController : ControllerBase
     {
-        private readonly LoopRepo _loopRepo;
+        private readonly ILoopRepo _loopRepo;
         private readonly ILogger<LoopController> _logger;
 
-        public LoopController(ILoopRepo loopRepo)
+        public LoopController(ILoopRepo loopRepo, ILogger<LoopController> logger)
         {
             _loopRepo = loopRepo;
             _logger = logger;

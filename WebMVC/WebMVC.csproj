@@ -9,5 +9,4 @@
     <PackageReference Include="GoogleApi" Version="4.5.4" />
     <PackageReference Include="GoogleMapsApi" Version="1.2.1" />
   </ItemGroup>
-
 </Project>

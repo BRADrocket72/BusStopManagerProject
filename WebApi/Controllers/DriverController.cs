@@ -12,11 +12,11 @@ namespace WebApi.Controllers {
     [Route("[Controller]")]
     public class DriverController : ControllerBase
     {
-        private readonly DriverRepo _driverRepo;
+        private readonly IDriverRepo _driverRepo;
         private readonly ILogger<DriverController> _logger;
 
         
-        public DriverController(IDriverRepo driverRepo)
+        public DriverController(IDriverRepo driverRepo, ILogger<DriverController> logger)
         {
             _driverRepo = driverRepo;
             _logger = logger;

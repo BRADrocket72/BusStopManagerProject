@@ -14,11 +14,11 @@ namespace WebApi.Controllers
     [Route("[Controller]")]
     public class StopController : ControllerBase
     {
-        private readonly StopRepo _stopRepo;
+        private readonly IStopRepo _stopRepo;
         private readonly ILogger<StopController> _logger;
 
 
-        public StopController(IStopRepo stopRepo)
+        public StopController(IStopRepo stopRepo, ILogger<StopController> logger)
         {
             _stopRepo = stopRepo;
             _logger = logger;

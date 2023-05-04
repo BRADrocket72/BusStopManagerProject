@@ -13,10 +13,10 @@ namespace WebApi.Controller
     public class BusController : ControllerBase
     {
         private readonly ILogger<BusController> _logger;
-        private readonly BusRepo _busRepo;
+        private readonly IBusRepo _busRepo;
 
 
-        public BusController(IBusRepo busRepo)
+        public BusController(IBusRepo busRepo, ILogger<BusController> logger)
         {
             _logger = logger;
             _busRepo = busRepo;
