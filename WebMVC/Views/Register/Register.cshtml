@@ -1,0 +1,33 @@
+@model RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="register-form">
+    <h1 class="display-4">Bus Manager App</h1>
+    <form method="post" asp-action="Register">
+        <h1>Register</h1>
+        <div class="content">
+            <div class="input-field">
+                <input asp-for="FirstName" id="firstName" placeholder="First Name" autocomplete="nope">
+            </div>
+            <div class="input-field">
+                <input asp-for="LastName" id="lastName" placeholder="Last Name" autocomplete="nope">
+            </div>
+            <div class="input-field">
+                <input asp-for="Email" id="email" type="email" placeholder="Email" autocomplete="nope">
+            </div>
+            <div class="input-field">
+                <input asp-for="Password" id="password" type="password" placeholder="Password"
+                    autocomplete="new-password" aria-autocomplete="list">
+            </div>
+            <a href="#" class="link">Forgot Your Password?</a>
+        </div>
+        <div class="action">
+            <button asp-controller="Register" asp-action="OnPost">Register</button>
+            <button asp-controller="Login" asp-action="Login">Sign in</button>
+        </div>
+    </form>
+</div>
+
+

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-public class RegisterViewModel
+public class RegisterViewModel 
 {
     [Required]
     [Display(Name = "First Name")]
@@ -9,6 +9,11 @@ public class RegisterViewModel
     [Required]
     [Display(Name = "Last Name")]
     public string LastName { get; set; }
+
+    [Required]
+    [DataType(DataType.EmailAddress)]
+    [Display(Name = "Email")]
+    public string Email { get; set; }
 
     [Required]
     [DataType(DataType.Password)]

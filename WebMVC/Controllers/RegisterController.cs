@@ -4,52 +4,50 @@ using WebMVC.Models;
 
 namespace WebMVC.Controllers;
 
-public class LoginController : Controller
+public class RegisterController : Controller
 {
-    private readonly ILogger<LoginController> _logger;
+    private readonly ILogger<RegisterController> _logger;
 
-    public LoginController(ILogger<LoginController> logger)
+    public RegisterController(ILogger<RegisterController> logger)
     {
         _logger = logger;
     }
 
-    public IActionResult Login()
-    {
-        _logger.LogInformation("Login page accessed.");
-        return View();
-    }
 
-    public IActionResult LoginUser(){
-        _logger.LogInformation("User login attempted.");
-        return View();
-    }
 
     public IActionResult Register()
     {
-        _logger.LogInformation("Registration page accessed.");
+
         return View();
     }
 
-        public IActionResult RegisterUser()
+    public IActionResult RegisterUser()
+    {
+        return View();
+    }
+
+    public IActionResult OnPost(RegisterViewModel model)
     {
         var client = new HttpClient();
         client.BaseAddress = new Uri("http://localhost:5279/");
-        var responseTask = client.GetAsync("user/register");
+        var responseTask = client.PostAsJsonAsync("User/Register", model);
         responseTask.Wait();
         var result = responseTask.Result;
 
         if (result.IsSuccessStatusCode)
         {
-           
+            var readTask = result.Content.ReadFromJsonAsync<List<RouteViewModel>>();
+            // routes = readTask.Result;
         }
-        return View();
+        return Register();
     }
+
+
 
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
-        _logger.LogError("An error occurred on the login page.");
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }
