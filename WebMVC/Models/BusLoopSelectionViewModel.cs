@@ -7,12 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebMVC.Models
 {
-    public class StopViewModel : PageModel
+    public class BusLoopSelectionViewModel : PageModel
     {
-        public int Id;
-        public string Name;
-        public double Latitude;
-        public double Longitude;
+        public List<BusViewModel> Buses;
+        public List<LoopViewModel> Loops;
 
 
     }

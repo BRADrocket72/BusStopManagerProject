@@ -1,0 +1,21 @@
+@model WebMVC.Models.BusLoopSelectionViewModel
+@{
+    ViewData["Title"] = "BusDriver";
+}
+<link rel="stylesheet" type="text/css" href="cshtml.css">
+
+<div>
+    <h1>Bus & Loop Selection</h1>
+    <form method=" = " post>
+        @* @Html.DropDownList("Buses", "Select") *@
+
+
+
+        <input type="submit" value="Submit">
+    </form>
+
+    @if (ViewData["TotalPassengers"] != null)
+    {
+        <div>Total passengers: @ViewData["TotalPassengers"]</div>
+    }
+</div>

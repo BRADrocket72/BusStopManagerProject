@@ -1,50 +1,45 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using WebMVC.Models;
-using System;
-
 
 namespace WebMVC.Controllers;
 
-public class RouteController : Controller
+public class RegisterController : Controller
 {
-    private readonly ILogger<RouteController> _logger;
+    private readonly ILogger<RegisterController> _logger;
 
-    public RouteController(ILogger<RouteController> logger)
+    public RegisterController(ILogger<RegisterController> logger)
     {
         _logger = logger;
     }
 
 
 
-    public ActionResult RoutesTable()
+    public IActionResult Register()
     {
-        List<RouteViewModel> routes = new List<RouteViewModel>();
+
+        return View();
+    }
+
+    public IActionResult RegisterUser()
+    {
+        return View();
+    }
+
+    public IActionResult OnPost(RegisterViewModel model)
+    {
         var client = new HttpClient();
         client.BaseAddress = new Uri("http://localhost:5279/");
-        var responseTask = client.GetAsync("route/getall");
+        var responseTask = client.PostAsJsonAsync("User/Register", model);
         responseTask.Wait();
         var result = responseTask.Result;
 
         if (result.IsSuccessStatusCode)
         {
             var readTask = result.Content.ReadFromJsonAsync<List<RouteViewModel>>();
-            routes = readTask.Result;
+            // routes = readTask.Result;
         }
-
-        return View(routes);
-    }
-
-
-
-
-
-
-    public IActionResult RouteMap()
-    {
-        List<MapPointViewModel> stops = new List<MapPointViewModel> { new MapPointViewModel { lat = -25.344, lng = 131.031 }, new MapPointViewModel { lat = -20.344, lng = 121.031 } };
-
-        return View(stops);
+        return Register();
     }
 
 

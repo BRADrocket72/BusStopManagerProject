@@ -9,7 +9,7 @@ namespace WebMVC.Models
 {
     public class EntryViewModel : PageModel
     {
-        public Guid Id;
+        public int Id;
         public DateTime Timestamp;
         public int Boarded;
         public int LeftBehind;
