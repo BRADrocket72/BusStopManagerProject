@@ -11,10 +11,11 @@
     </tr>
     @foreach (RouteViewModel d in Model)
     {
-            <tr>
-                <td>@d.Order</td>
-                <td><button>Delete</button><button>View on Map</button></td>
-                <td></td>
-            </tr>
+        <tr>
+            <td>@d.Order</td>
+            <td><button>Delete</button><button><a class="nav-link text-dark" asp-area="" asp-controller="Stops"
+                    asp-action="StopsMap">Stops Map</a></button></td>
+            <td></td>
+        </tr>
     }
 </table>

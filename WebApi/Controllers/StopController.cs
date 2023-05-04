@@ -14,7 +14,8 @@ namespace WebApi.Controllers
         private readonly StopRepo _stopRepo;
         private readonly ILogger<StopController> _logger;
 
-        public StopController(StopRepo stopRepo)
+
+        public StopController(IStopRepo stopRepo)
         {
             _stopRepo = stopRepo;
             _logger = logger;

@@ -9,7 +9,7 @@ namespace WebMVC.Models
 {
     public class RouteViewModel : PageModel
     {
-        public Guid Id;
+        public int Id;
         public int Order;
         public IEnumerable<StopViewModel> Stops;
 

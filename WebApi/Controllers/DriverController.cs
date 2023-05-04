@@ -12,8 +12,9 @@ namespace WebApi.Controllers {
     {
         private readonly DriverRepo _driverRepo;
         private readonly ILogger<DriverController> _logger;
+
         
-        public DriverController(DriverRepo driverRepo)
+        public DriverController(IDriverRepo driverRepo)
         {
             _driverRepo = driverRepo;
             _logger = logger;

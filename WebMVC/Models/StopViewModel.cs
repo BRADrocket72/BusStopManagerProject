@@ -9,7 +9,7 @@ namespace WebMVC.Models
 {
     public class StopViewModel : PageModel
     {
-        public Guid Id;
+        public int Id;
         public string Name;
         public double Latitude;
         public double Longitude;

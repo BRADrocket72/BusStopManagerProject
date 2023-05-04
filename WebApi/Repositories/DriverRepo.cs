@@ -1,11 +1,11 @@
 using Domain;
 using Microsoft.EntityFrameworkCore;
 
-public class DriverRepo
+public class DriverRepo : IDriverRepo
 {
-    private readonly DbContext _context;
+    private readonly BusContext _context;
 
-    public DriverRepo(DbContext context)
+    public DriverRepo(BusContext context)
     {
         _context = context;
     }

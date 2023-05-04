@@ -14,7 +14,7 @@ namespace WebApi.Controllers
         private readonly LoopRepo _loopRepo;
         private readonly ILogger<LoopController> _logger;
 
-        public LoopController(LoopRepo loopRepo)
+        public LoopController(ILoopRepo loopRepo)
         {
             _loopRepo = loopRepo;
             _logger = logger;

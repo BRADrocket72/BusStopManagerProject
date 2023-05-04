@@ -14,7 +14,7 @@ namespace WebApi.Controllers
         private readonly RouteRepo _routeRepo;
         private readonly ILogger<RouteController> _logger;
 
-        public RouteController(RouteRepo routeRepo)
+        public RouteController(IRouteRepo routeRepo)
         {
             _routeRepo = routeRepo;
             _logger = logger;

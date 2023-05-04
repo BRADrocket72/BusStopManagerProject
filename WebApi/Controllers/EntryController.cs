@@ -14,7 +14,8 @@ namespace WebApi.Controllers
         private readonly EntryRepo _entryRepo;
         private readonly ILogger<DriverController> _logger;
 
-        public EntryController(EntryRepo entryRepo)
+
+        public EntryController(IEntryRepo entryRepo)
         {
             _entryRepo = entryRepo;
             _logger = logger;

@@ -30,6 +30,22 @@ public class LoginController : Controller
         return View();
     }
 
+        public IActionResult RegisterUser()
+    {
+        var client = new HttpClient();
+        client.BaseAddress = new Uri("http://localhost:5279/");
+        var responseTask = client.GetAsync("user/register");
+        responseTask.Wait();
+        var result = responseTask.Result;
+
+        if (result.IsSuccessStatusCode)
+        {
+           
+        }
+        return View();
+    }
+
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

@@ -3,9 +3,11 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApi.Controller
 {
+    [Authorize(Policy = "AdminOnly")]
     [ApiController]
     [Route("[Controller]")]
     public class BusController : ControllerBase
@@ -13,7 +15,8 @@ namespace WebApi.Controller
         private readonly ILogger<BusController> _logger;
         private readonly BusRepo _busRepo;
 
-        public BusController(BusRepo busRepo)
+
+        public BusController(IBusRepo busRepo)
         {
             _logger = logger;
             _busRepo = busRepo;
