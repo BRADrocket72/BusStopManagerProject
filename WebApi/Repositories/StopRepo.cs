@@ -1,8 +1,11 @@
-public class StopRepo
-{
-    private readonly DbContext _context;
+using Domain;
+using Microsoft.EntityFrameworkCore;
 
-    public StopRepo(DbContext context)
+public class StopRepo : IStopRepo
+{
+    private readonly BusContext _context;
+
+    public StopRepo(BusContext context)
     {
         _context = context;
     }
@@ -20,23 +23,29 @@ public class StopRepo
     }
 
     // Add a new stop to the database
-    public void AddStop(Stop stop)
+    public Stop AddStop(Stop stop)
     {
         _context.Set<Stop>().Add(stop);
         _context.SaveChanges();
+        return stop;
     }
 
     // Update a stop in the database
-    public void UpdateStop(Stop stop)
+    public Stop UpdateStop(Stop stop)
     {
         _context.Entry(stop).State = EntityState.Modified;
         _context.SaveChanges();
+        return stop;
     }
 
     // Delete a stop from the database
-    public void DeleteStop(Stop stop)
+    public void DeleteStop(int stopId)
     {
-        _context.Set<Stop>().Remove(stop);
-        _context.SaveChanges();
+        var stop = _context.Set<Stop>().Find(stopId);
+        if (stop != null)
+        {
+            _context.Set<Stop>().Remove(stop);
+            _context.SaveChanges();
+        }
     }
 }

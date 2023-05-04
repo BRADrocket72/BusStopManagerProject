@@ -9,5 +9,6 @@ namespace Domain
     {
         public int Id { get; set; }
         public int Order { get; set; }
+        public Stop Stop { get; set; }
     }
 }

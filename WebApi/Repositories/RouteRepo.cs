@@ -1,8 +1,12 @@
-public class RouteRepo
-{
-    private readonly DbContext _context;
+using Domain;
+using Microsoft.EntityFrameworkCore;
+using Route = Domain.Route;
 
-    public RouteRepo(DbContext context)
+public class RouteRepo : IRouteRepo
+{
+    private readonly BusContext _context;
+
+    public RouteRepo(BusContext context)
     {
         _context = context;
     }
@@ -20,23 +24,29 @@ public class RouteRepo
     }
 
     // Add a new route to the database
-    public void AddRoute(Route route)
+    public Route AddRoute(Route route)
     {
         _context.Set<Route>().Add(route);
         _context.SaveChanges();
+        return route;
     }
 
     // Update a route in the database
-    public void UpdateRoute(Route route)
+    public Route UpdateRoute(Route route)
     {
         _context.Entry(route).State = EntityState.Modified;
         _context.SaveChanges();
+        return route;
     }
 
     // Delete a route from the database
-    public void DeleteRoute(Route route)
+    public void DeleteRoute(int routeId)
     {
-        _context.Set<Route>().Remove(route);
-        _context.SaveChanges();
+        var route = _context.Set<Route>().Find(routeId);
+        if (route != null)
+        {
+            _context.Set<Route>().Remove(route);
+            _context.SaveChanges();
+        }
     }
 }

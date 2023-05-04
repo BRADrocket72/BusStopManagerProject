@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Login Page";
+}
+
+<div class="login-form">
+    <h1 class="display-4">Bus Manager App</h1>
+    <form>
+        <h1>Login</h1>
+        <div class="content">
+            <div class="input-field">
+                <input id="email" type="email" placeholder="Email" autocomplete="nope">
+            </div>
+            <div class="input-field">
+                <input id="password" type="password" placeholder="Password" autocomplete="new-password"
+                    aria-autocomplete="list">
+            </div>
+            <a href="#" class="link">Forgot Your Password?</a>
+        </div>
+        <div class="action">
+            <button asp-controller="Register" asp-action="Register">Register</button>
+            <button asp-controller="Login" asp-action="LoginUser">Sign in</button>
+        </div>
+    </form>
+</div>
+
+

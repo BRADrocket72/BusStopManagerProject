@@ -1,0 +1,25 @@
+@model IEnumerable<EntryViewModel>
+
+@{
+    ViewBag.Title = "Entries List";
+}
+<div><b>Bus Routes</b><br /></div>
+<table class="table table-hover">
+    <tr>
+        <th>Date </th>
+        <th>Loop </th>
+        <th>Driver </th>
+        <th>Boarded </th>
+        <th>Left Behind </th>
+    </tr>
+    @foreach (EntryViewModel d in Model)
+    {
+        <tr>
+            <td>@d.Timestamp.DayOfWeek</td>
+            <td>@d.Loop.Name</td>
+            <td>@d.Driver.FirstName @d.Driver.LastName</td>
+            <td>@d.Boarded</td>
+            <td>@d.LeftBehind</td>
+        </tr>
+    }
+</table>
