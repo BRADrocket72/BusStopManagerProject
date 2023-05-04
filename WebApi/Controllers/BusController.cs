@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApi.Controller
 {
+    [Authorize(Policy = "AdminOnly")]
     [ApiController]
     [Route("[Controller]")]
     public class BusController : ControllerBase

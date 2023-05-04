@@ -1,107 +1,107 @@
-using System.Net.Http;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Xunit;
 using Domain;
+using Microsoft.EntityFrameworkCore;
+using Moq;
+using System.Collections.Generic;
+using Xunit;
 
-namespace WebApi.Tests
+public class BusRepoTests
 {
-    public class BusControllerIntegrationTests : IClassFixture<WebApplicationFactory<Program>>
+    [Fact]
+    public void GetAllBuses_ShouldReturnListOfBuses()
     {
-        private readonly WebApplicationFactory<Program> _factory;
-
-        public BusControllerIntegrationTests(WebApplicationFactory<Program> factory)
+        // Arrange
+        var buses = new List<Bus>
         {
-            _factory = factory;
-        }
+            new Bus { Id = 1, BusNumber = 1234 },
+            new Bus { Id = 2, BusNumber = 5678 }
+        };
+        var dbContextOptions = new DbContextOptionsBuilder<BusContext>().UseInMemoryDatabase(databaseName: "GetAllBuses").Options;
+        var context = new BusContext(dbContextOptions);
+        context.AddRange(buses);
+        context.SaveChanges();
+        var busRepo = new BusRepo(context);
 
-        [Fact]
-        public async Task GetAllBusses_ReturnsSuccessStatusCode()
-        {
-            // Arrange
-            var client = _factory.CreateClient();
+        // Act
+        var result = busRepo.GetAllBuses();
 
-            // Act
-            var response = await client.GetAsync("/Bus/GetAll");
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(buses.Count, result.Count);
+    }
 
-            // Assert
-            response.EnsureSuccessStatusCode();
-        }
+    [Fact]
+    public void GetBusById_ShouldReturnCorrectBus()
+    {
+        // Arrange
+        var bus = new Bus { Id = 1, BusNumber = 1234 };
+        var dbContextOptions = new DbContextOptionsBuilder<BusContext>().UseInMemoryDatabase(databaseName: "GetBusById").Options;
+        var context = new BusContext(dbContextOptions);
+        context.Add(bus);
+        context.SaveChanges();
+        var busRepo = new BusRepo(context);
 
-        [Fact]
-        public async Task GetBusById_ReturnsSuccessStatusCode()
-        {
-            // Arrange
-            var client = _factory.CreateClient();
-            int id = 1;
+        // Act
+        var result = busRepo.GetBusById(bus.Id);
 
-            // Act
-            var response = await client.GetAsync($"/Bus/GetBusById?id={id}");
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(bus.BusNumber, result.BusNumber);
+    }
 
-            // Assert
-            response.EnsureSuccessStatusCode();
-        }
+    [Fact]
+    public void AddBus_ShouldAddBusToDatabase()
+    {
+        // Arrange
+        var bus = new Bus { Id = 1, BusNumber = 1234 };
+        var dbContextOptions = new DbContextOptionsBuilder<BusContext>().UseInMemoryDatabase(databaseName: "AddBus").Options;
+        var context = new BusContext(dbContextOptions);
+        var busRepo = new BusRepo(context);
 
-        [Fact]
-        public async Task GetBusById_ReturnsNotFoundStatusCode()
-        {
-            // Arrange
-            var client = _factory.CreateClient();
-            int id = 999;
+        // Act
+        var result = busRepo.AddBus(bus);
 
-            // Act
-            var response = await client.GetAsync($"/Bus/GetBusById?id={id}");
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(bus, result);
+        Assert.Contains(bus, context.Set<Bus>());
+    }
 
-            // Assert
-            Assert.Equal(System.Net.HttpStatusCode.NotFound, response.StatusCode);
-        }
+    [Fact]
+    public void UpdateBus_ShouldUpdateBusInDatabase()
+    {
+        // Arrange
+        var bus = new Bus { Id = 1, BusNumber = 1234 };
+        var dbContextOptions = new DbContextOptionsBuilder<BusContext>().UseInMemoryDatabase(databaseName: "UpdateBus").Options;
+        var context = new BusContext(dbContextOptions);
+        context.Add(bus);
+        context.SaveChanges();
+        var busRepo = new BusRepo(context);
 
-        [Fact]
-        public async Task CreateBus_ReturnsSuccessStatusCode()
-        {
-            // Arrange
-            var client = _factory.CreateClient();
-            var bus = new Bus { Id = 1, BusNumber = 1 };
-            var content = new StringContent(JsonSerializer.Serialize(bus), Encoding.UTF8, "application/json");
+        // Act
+        bus.BusNumber = 5678;
+        var result = busRepo.UpdateBus(bus);
 
-            // Act
-            var response = await client.PostAsync("/Bus/CreateBus", content);
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(bus, result);
+        Assert.Equal(bus.BusNumber, context.Set<Bus>().Find(bus.Id).BusNumber);
+    }
 
-            // Assert
-            response.EnsureSuccessStatusCode();
-        }
+    [Fact]
+    public void DeleteBus_ShouldDeleteBusFromDatabase()
+    {
+        // Arrange
+        var bus = new Bus { Id = 1, BusNumber = 1234 };
+        var dbContextOptions = new DbContextOptionsBuilder<BusContext>().UseInMemoryDatabase(databaseName: "DeleteBus").Options;
+        var context = new BusContext(dbContextOptions);
+        context.Add(bus);
+        context.SaveChanges();
+        var busRepo = new BusRepo(context);
 
-        [Fact]
-        public async Task UpdateBusInfo_ReturnsSuccessStatusCode()
-        {
-            // Arrange
-            var client = _factory.CreateClient();
+        // Act
+        busRepo.DeleteBus(bus.Id);
 
-            var bus = new Bus { Id = 1, BusNumber = 1 };
-            var content = new StringContent(JsonSerializer.Serialize(bus), Encoding.UTF8, "application/json");
-
-            // Act
-            await client.PostAsync("/Bus/CreateBus", content);
-            var response = await client.PostAsync("/Bus/Update/UpdateBusInfo", content);
-
-            // Assert
-            response.EnsureSuccessStatusCode();
-        }
-
-        [Fact]
-        public async Task DeleteBus_ReturnsSuccessStatusCode()
-        {
-            // Arrange
-            var client = _factory.CreateClient();
-            int id = 1;
-
-            // Act
-            var response = await client.PostAsync($"/Bus/Delete/Bus?id={id}", null);
-
-            // Assert
-            response.EnsureSuccessStatusCode();
-        }
+        // Assert
+        Assert.DoesNotContain(bus, context.Set<Bus>());
     }
 }

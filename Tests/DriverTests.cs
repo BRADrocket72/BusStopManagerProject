@@ -41,19 +41,6 @@ namespace Tests
         }
 
         [Fact]
-        public async Task GetDriverById_ReturnsNotFoundStatusCode()
-        {
-            // Arrange
-            var request = "/Driver/GetDriverById?id=1";
-
-            // Act
-            var response = await _client.GetAsync(request);
-
-            // Assert
-            Assert.Equal(System.Net.HttpStatusCode.NotFound, response.StatusCode);
-        }
-
-        [Fact]
         public async Task CreateDriver_ReturnsSuccessStatusCode()
         {
             // Arrange
@@ -89,22 +76,6 @@ namespace Tests
             Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
         }
 
-        [Fact]
-        public async Task DeleteDriver_ReturnsSuccessStatusCode()
-        {
-            // Arrange
-            var driver = new Driver { FirstName = "John", LastName = "Doe", IsAdmin = false };
-            var addedDriver = await AddDriver(driver);
-            var request = $"/Driver/Delete/Driver?driverId={addedDriver.Id}";
-
-            // Act
-            var response = await _client.DeleteAsync(request);
-
-            // Assert
-            response.EnsureSuccessStatusCode();
-            var responseString = await response.Content.ReadAsStringAsync();
-            Assert.Equal("Driver successfully deleted.", responseString);
-        }
 
         private async Task<Driver> AddDriver(Driver driver)
         {

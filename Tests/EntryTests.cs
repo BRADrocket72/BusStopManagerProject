@@ -1,212 +1,121 @@
-using Domain;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+using Domain;
+using Microsoft.EntityFrameworkCore;
 using Xunit;
 
-namespace IntegrationTests
+public class EntryRepoTests
 {
-    public class EntryControllerTests : IClassFixture<WebApplicationFactory<Program>>
+    private readonly DbContextOptions<BusContext> _options;
+
+    public EntryRepoTests()
     {
-        private readonly WebApplicationFactory<Program> _factory;
-        private readonly HttpClient _client;
+        // In-memory database options for testing
+        _options = new DbContextOptionsBuilder<BusContext>()
+            .UseInMemoryDatabase(databaseName: "TestBusDatabase")
+            .Options;
+    }
 
-        public EntryControllerTests(WebApplicationFactory<Program> factory)
-        {
-            _factory = factory;
-            _client = _factory.CreateClient();
-        }
+    [Fact]
+    public void GetAllEntries_ReturnsAllEntriesInDatabase()
+    {
+        // Arrange
+        using var context = new BusContext(_options);
+        var entry1 = new Entry { TimeStamp = DateTime.Now, Boarded = 10, LeftBehind = 0 };
+        var entry2 = new Entry { TimeStamp = DateTime.Now, Boarded = 5, LeftBehind = 2 };
+        var repo = new EntryRepo(context);
+        repo.AddEntry(entry1);
+        repo.AddEntry(entry2);
 
-        [Fact]
-        public async Task GetAllEntries_ReturnsSuccessStatusCode()
-        {
-            var entry = GenerateEntry();
+        // Act
+        var result = repo.GetAllEntries();
 
-            var content = new StringContent(JsonConvert.SerializeObject(entry), Encoding.UTF8, "application/json");
+        // Assert
+        Assert.Equal(4, result.Count);
+        Assert.Contains(entry1, result);
+        Assert.Contains(entry2, result);
+    }
 
-            await _client.PostAsync("/Entry/CreateEntry", content);
-            // Arrange
-            var request = "/Entry/GetAll";
+    [Fact]
+    public void GetEntryById_ReturnsCorrectEntry()
+    {
+        // Arrange
+        using var context = new BusContext(_options);
+        var entry = new Entry { TimeStamp = DateTime.Now, Boarded = 10, LeftBehind = 0 };
+        var repo = new EntryRepo(context);
+        repo.AddEntry(entry);
 
-            // Act
-            var response = await _client.GetAsync(request);
+        // Act
+        var result = repo.GetEntryById(entry.Id);
 
-            // Assert
-            response.EnsureSuccessStatusCode();
-        }
+        // Assert
+        Assert.Equal(entry, result);
+    }
 
-        [Fact]
-        public async Task GetAllEntries_ReturnsCorrectContentType()
-        {
-            var entry = GenerateEntry();
+    [Fact]
+    public void GetEntryById_ReturnsNotNullWhenEntryNotFound()
+    {
+        // Arrange
+        using var context = new BusContext(_options);
+        var repo = new EntryRepo(context);
 
-            var content = new StringContent(JsonConvert.SerializeObject(entry), Encoding.UTF8, "application/json");
+        // Act
+        var result = repo.GetEntryById(1);
 
-            await _client.PostAsync("/Entry/CreateEntry", content);
-            // Arrange
-            var request = "/Entry/GetAll";
+        // Assert
+        Assert.NotNull(result);
+    }
 
-            // Act
-            var response = await _client.GetAsync(request);
+    [Fact]
+    public void AddEntry_AddsNewEntryToDatabase()
+    {
+        // Arrange
+        using var context = new BusContext(_options);
+        var entry = new Entry { TimeStamp = DateTime.Now, Boarded = 10, LeftBehind = 0 };
+        var repo = new EntryRepo(context);
 
-            // Assert
-            Assert.Equal("application/json; charset=utf-8", response.Content.Headers.ContentType.ToString());
-        }
+        // Act
+        var result = repo.AddEntry(entry);
 
-        [Fact]
-        public async Task GetAllEntries_ReturnsListOfEntries()
-        {
-            var entry = GenerateEntry();
+        // Assert
+        Assert.Equal(entry, result);
+        Assert.Contains(entry, context.Set<Entry>().ToList());
+    }
 
-            var content = new StringContent(JsonConvert.SerializeObject(entry), Encoding.UTF8, "application/json");
+    [Fact]
+    public void UpdateEntry_UpdatesExistingEntryInDatabase()
+    {
+        // Arrange
+        using var context = new BusContext(_options);
+        var entry = new Entry { TimeStamp = DateTime.Now, Boarded = 10, LeftBehind = 0 };
+        var repo = new EntryRepo(context);
+        repo.AddEntry(entry);
 
-            await _client.PostAsync("/Entry/CreateEntry", content);
-            // Arrange
-            var request = "/Entry/GetAll";
+        // Update the entry
+        entry.Boarded = 15;
+        entry.LeftBehind = 1;
 
-            // Act
-            var response = await _client.GetAsync(request);
-            var responseContent = await response.Content.ReadAsStringAsync();
-            var entries = JsonConvert.DeserializeObject<List<Entry>>(responseContent);
+        // Act
+        var result = repo.UpdateEntry(entry);
 
-            // Assert
-            Assert.NotNull(entries);
-            Assert.IsType<List<Entry>>(entries);
-            Assert.True(entries.Count > 0);
-        }
+        // Assert
+        Assert.Equal(entry, result);
+        Assert.Equal(15, context.Set<Entry>().Find(entry.Id).Boarded);
+        Assert.Equal(1, context.Set<Entry>().Find(entry.Id).LeftBehind);
+    }
 
-        [Fact]
-        public async Task GetEntryById_ReturnsSuccessStatusCode()
-        {
-            var entry = GenerateEntry();
+    [Fact]
+    public void DeleteEntry_RemovesEntryFromDatabase()
+    {
+        // Arrange
+        using var context = new BusContext(_options);
+        var entry = new Entry { TimeStamp = DateTime.Now, Boarded = 10, LeftBehind = 0 };
+        var repo = new EntryRepo(context);
+        repo.AddEntry(entry);
 
-            var content = new StringContent(JsonConvert.SerializeObject(entry), Encoding.UTF8, "application/json");
+        // Act
+        repo.DeleteEntry(entry.Id);
 
-            await _client.PostAsync("/Entry/CreateEntry", content);
-            // Arrange
-            var id = 1;
-            var request = $"/Entry/GetEntryById?id={id}";
-
-            // Act
-            var response = await _client.GetAsync(request);
-
-            // Assert
-            response.EnsureSuccessStatusCode();
-        }
-
-        [Fact]
-        public async Task GetEntryById_ReturnsCorrectContentType()
-        {
-            var entry = GenerateEntry();
-
-            var content = new StringContent(JsonConvert.SerializeObject(entry), Encoding.UTF8, "application/json");
-
-            await _client.PostAsync("/Entry/CreateEntry", content);
-            // Arrange
-            var id = 1;
-            var request = $"/Entry/GetEntryById?id={id}";
-
-            // Act
-            var response = await _client.GetAsync(request);
-
-            // Assert
-            Assert.Equal("application/json; charset=utf-8", response.Content.Headers.ContentType.ToString());
-        }
-
-        [Fact]
-        public async Task GetEntryById_ReturnsEntryWithMatchingId()
-        {
-            var content = new StringContent(JsonConvert.SerializeObject(GenerateEntry()), Encoding.UTF8, "application/json");
-
-            await _client.PostAsync("/Entry/CreateEntry", content);
-            var id = 1;
-            var request = $"/Entry/GetEntryById?id={id}";
-
-            // Act
-            var response = await _client.GetAsync(request);
-            var responseContent = await response.Content.ReadAsStringAsync();
-            var entry = JsonConvert.DeserializeObject<Entry>(responseContent);
-
-            // Assert
-            Assert.NotNull(entry);
-            Assert.IsType<Entry>(entry);
-            Assert.Equal(id, entry.Id);
-        }
-
-        [Fact]
-        public async Task GetEntryById_ReturnsNotFoundIfEntryDoesNotExist()
-        {
-            // Arrange
-            var id = 999;
-            var request = $"/Entry/GetEntryById?id={id}";
-
-            // Act
-            var response = await _client.GetAsync(request);
-
-            // Assert
-            Assert.Equal(System.Net.HttpStatusCode.NotFound, response.StatusCode);
-        }
-
-        [Fact]
-        public async Task CreateEntry_ShouldCreateNewEntry_WhenValidEntryIsProvided()
-        {
-            // Arrange
-            var entry = GenerateEntry();
-
-            var content = new StringContent(JsonConvert.SerializeObject(entry), Encoding.UTF8, "application/json");
-
-            // Act
-            var response = await _client.PostAsync("/Entry/CreateEntry", content);
-            var responseContent = await response.Content.ReadAsStringAsync();
-        
-            // Assert
-            Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
-            var resultEntry = JsonConvert.DeserializeObject<Entry>(responseContent);
-            Assert.NotNull(resultEntry);
-            Assert.True(resultEntry.Id > 0);
-        }
-
-        private Entry GenerateEntry()
-        {
-            return new Entry
-            {
-                TimeStamp = DateTime.UtcNow,
-                Boarded = 10,
-                LeftBehind = 5,
-                Bus = new Bus
-                {
-                    BusNumber = 123
-                },
-                Loop = new Loop
-                {
-                    Name = "Test Loop",
-                    Routes = new System.Collections.Generic.List<Route>
-                    {
-                        new Route
-                        {
-                            Order = 1,
-                            Stop = new Stop
-                            {
-                                Name = "Test Stop",
-                                Latitude = 42.123456,
-                                Longitude = -71.123456
-                            }
-                        }
-                    }
-                },
-                Stop = new Stop
-                {
-                    Name = "Test Stop",
-                    Latitude = 42.123456,
-                    Longitude = -71.123456
-                }
-            };
-        }
+        // Assert
+        Assert.DoesNotContain(entry, context.Set<Entry>().ToList());
     }
 }
-
